@@ -1,706 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kickoff Club ⚽</title>
 <style>
-:root {
-  --bg:#0b1018;
-  --panel:#141c28;
-  --panel2:#1b2635;
-  --line:#293648;
-  --text:#f4f7fb;
-  --muted:#91a0b4;
-  --gold:#f5c451;
-  --green:#36d68a;
-  --red:#ff7070;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-}
-header{
-  padding:22px 18px 16px;
-  background:linear-gradient(120deg,#172638,#101722);
-  border-bottom:1px solid var(--line);
-}
-.topline{max-width:1100px;margin:auto}
-.logo{font-size:27px;font-weight:900;letter-spacing:-1px}
-.logo span{color:var(--gold)}
-.tagline{color:var(--muted);font-size:13px;margin-top:5px}
-nav{
-  display:flex;gap:7px;overflow-x:auto;padding:12px 14px;
-  background:#101722;border-bottom:1px solid var(--line);
-  position:sticky;top:0;z-index:5;
-}
-nav button{
-  flex:0 0 auto;border:0;border-radius:10px;padding:11px 15px;
-  background:var(--panel2);color:var(--muted);
-  font-weight:700;font-size:13px;cursor:pointer;
-}
-nav button.active{background:var(--gold);color:#171717}
-main{max-width:1100px;margin:auto;padding:20px 14px 50px}
-.page{display:none}
-.page.active{display:block}
-h1{font-size:25px;margin:4px 0 6px}
-.subtitle{color:var(--muted);font-size:14px;margin-bottom:20px}
-.section-title{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:12px;margin:23px 0 12px;
-}
-.section-title h2{font-size:18px;margin:0}
-.card{
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:15px;padding:15px;margin-bottom:12px;
-}
-.match-card{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
-.team{display:flex;align-items:center;gap:9px;min-width:0}
-.team.away{justify-content:flex-end;text-align:right}
-.team img,.crest{
-  width:30px;height:30px;object-fit:contain;flex:0 0 30px;
-}
-.team-name{font-size:14px;font-weight:700;overflow-wrap:anywhere}
-.score{text-align:center;font-size:19px;font-weight:900;white-space:nowrap}
-.match-meta{text-align:center;color:var(--muted);font-size:11px;margin-top:5px}
-.badge{
-  display:inline-block;background:#263448;color:var(--muted);
-  border-radius:6px;padding:4px 7px;font-size:10px;font-weight:800;
-}
-.badge.live{background:#57252b;color:#ff9090}
-.badge.done{background:#203b32;color:#73e2aa}
-.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-button,.select{
-  font-family:inherit
-}
-.action{
-  background:var(--panel2);border:1px solid var(--line);
-  color:var(--text);padding:10px 13px;border-radius:9px;
-  cursor:pointer;font-weight:700;
-}
-.action:hover{border-color:var(--gold)}
-input[type=date],select{
-  background:var(--panel2);border:1px solid var(--line);
-  border-radius:9px;color:var(--text);padding:10px;
-}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:480px;font-size:13px}
-th,td{padding:11px 9px;border-bottom:1px solid var(--line);text-align:center}
-th{color:var(--muted);font-size:11px;text-transform:uppercase}
-td:first-child,th:first-child{text-align:left}
-.club-cell{display:flex;align-items:center;gap:8px;font-weight:700}
-.club-cell img{width:22px;height:22px;object-fit:contain}
-.pos{color:var(--muted);width:22px;display:inline-block}
-.points{color:var(--gold);font-weight:900}
-.loading,.empty,.error{
-  color:var(--muted);text-align:center;padding:25px 12px;
-  background:var(--panel);border:1px solid var(--line);border-radius:13px;
-}
-.error{color:#ff9292}
-.fixture-date{color:var(--gold);font-size:12px;font-weight:800;margin:15px 0 8px}
-.ai-card{padding:16px}
-.ai-teams{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
-.ai-team{text-align:center;min-width:0}
-.ai-team img{width:38px;height:38px;object-fit:contain;display:block;margin:0 auto 7px}
-.ai-team strong{font-size:13px;display:block}
-.home-away{font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:5px}
-.pred-score{font-size:25px;font-weight:900;color:var(--gold);white-space:nowrap}
-.pred-winner{text-align:center;margin:15px 0 12px;font-weight:800}
-.pred-winner span{color:var(--gold)}
-.prob-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
-.prob{
-  background:var(--panel2);border-radius:9px;padding:10px 5px;text-align:center;
-}
-.prob strong{display:block;font-size:19px}
-.prob small{color:var(--muted);font-size:10px}
-.bar{height:7px;border-radius:10px;background:#293648;display:flex;overflow:hidden;margin-top:12px}
-.bar span:nth-child(1){background:var(--green)}
-.bar span:nth-child(2){background:var(--gold)}
-.bar span:nth-child(3){background:#e17a7a}
-.confidence{font-size:11px;color:var(--muted);text-align:center;margin-top:10px}
-.note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:12px}
-footer{
-  text-align:center;color:#64748b;font-size:12px;
-  padding:25px;border-top:1px solid var(--line)
-}
-@media(max-width:520px){
-  header{padding:18px 15px}
-  main{padding:17px 11px 40px}
-  .card{padding:12px}
-  .team-name{font-size:12px}
-  .match-card{gap:4px}
-  .score{font-size:17px}
-}
-</style>
-</head>
+:root{--bg:#0b1018;--panel:#141d29;--panel2:#1b2735;--line:#293747;--text:#f4f7fb;--muted:#9aabba;--gold:#f5bd45;--gold2:#ffda80;--green:#39cf91;--red:#ff6868}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}button,input,select{font:inherit}header{background:#101925;border-bottom:1px solid var(--line);padding:17px 14px 0;position:sticky;top:0;z-index:5}.top{max-width:1160px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:14px}.logo{font-size:25px;font-weight:900;letter-spacing:-1px}.logo span{color:var(--gold)}.tagline{color:var(--muted);font-size:10px;letter-spacing:2px;margin-top:4px}.live-label{color:var(--green);font-size:10px;font-weight:bold;letter-spacing:1px}nav{max-width:1160px;margin:auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin}nav button{border:0;background:transparent;color:var(--muted);padding:12px 13px;white-space:nowrap;border-bottom:3px solid transparent;cursor:pointer;font-weight:bold;font-size:13px}nav button.active{color:var(--gold);border-bottom-color:var(--gold)}main{max-width:1160px;margin:22px auto;padding:0 14px 40px}.page{display:none}.page.active{display:block}.hero{background:linear-gradient(120deg,#1c2a3b,#172231);border:1px solid var(--line);border-radius:17px;padding:22px;margin-bottom:18px}.hero h1{margin:0 0 7px;font-size:25px}.hero p{color:var(--muted);margin:0;line-height:1.5}.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:22px 0 12px}.section-title h2{margin:0;font-size:18px}.subtle{color:var(--muted);font-size:12px}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:14px 0}.btn,select,input{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:10px 12px}.btn{cursor:pointer;font-weight:bold}.btn.primary{background:var(--gold);color:#15191e;border-color:var(--gold)}.btn:disabled{opacity:.4;cursor:not-allowed}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px}.match-top{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;margin-bottom:13px}.status{font-weight:bold}.status.live{color:var(--green)}.teams{display:grid;grid-template-columns:1fr 1fr;gap:10px}.team{display:flex;align-items:center;gap:7px;min-width:0}.team.away{justify-content:flex-end;text-align:right}.team img{width:28px;height:28px;object-fit:contain;flex-shrink:0}.team-name{font-size:13px;font-weight:bold;overflow-wrap:anywhere}.scoreline{text-align:center;font-size:21px;font-weight:900;margin:12px 0 4px}.match-footer{border-top:1px solid var(--line);padding-top:10px;margin-top:12px;color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:8px}.empty{background:var(--panel);border:1px dashed var(--line);border-radius:12px;color:var(--muted);padding:21px;text-align:center;line-height:1.5;grid-column:1/-1}.loading{color:var(--muted);padding:18px 4px}.table-wrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:13px}table{width:100%;border-collapse:collapse;min-width:540px;font-size:12px}th,td{text-align:center;padding:11px 8px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:10px}td.club{text-align:left;font-weight:bold}td.club img{width:21px;height:21px;object-fit:contain;vertical-align:middle;margin-right:7px}tr:last-child td{border-bottom:0}tr.highlight{background:#29301f}.note{color:var(--muted);font-size:11px;line-height:1.5;margin-top:13px}.pill{display:inline-block;border-radius:30px;padding:5px 9px;background:#263648;color:#c7d9e9;font-size:10px;font-weight:bold}.team-tile{display:flex;align-items:center;gap:12px;text-align:left;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px;color:var(--text);cursor:pointer}.team-tile img{width:36px;height:36px;object-fit:contain}.team-tile strong{display:block}.team-tile small{color:var(--muted)}.fav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.ai-box{background:linear-gradient(135deg,#1d2b3d,#17212e);border:1px solid #40516a;border-radius:16px;padding:18px;margin-top:15px}.ai-teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin:18px 0}.ai-team{text-align:center;min-width:0}.ai-team img{width:46px;height:46px;object-fit:contain;display:block;margin:0 auto 8px}.ai-team strong{display:block;font-size:14px}.vs{color:var(--muted);font-weight:bold}.prediction{text-align:center;background:#101925;border:1px solid var(--line);border-radius:12px;padding:15px}.winner{color:var(--gold2);font-size:20px;font-weight:900;margin:7px 0}.score{font-size:29px;font-weight:900;margin:8px 0}.probabilities{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.prob{background:var(--panel2);border-radius:9px;padding:11px 4px;text-align:center}.prob strong{display:block;font-size:20px;color:var(--gold)}.prob small{color:var(--muted);font-size:10px}.confidence{display:inline-block;margin-top:11px;padding:6px 10px;border-radius:20px;background:#25394a;color:#b9d8f4;font-size:10px;font-weight:bold}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.setting-row:last-child{border:0}.setting-row small{display:block;color:var(--muted);margin-top:4px}.modal{position:fixed;inset:0;background:#05080edc;z-index:20;display:none;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.modal-box{width:min(620px,100%);max-height:90vh;overflow:auto;background:#121c29;border:1px solid #3b4b5e;border-radius:18px;padding:22px}.modal-box h1{margin:0 0 8px}.modal-box p{color:var(--muted);line-height:1.5}.team-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:12px}.chosen{border-color:var(--gold);background:#28291f}.chosen:after{content:' ✓';color:var(--gold);font-weight:bold}.hidden{display:none!important}footer{border-top:1px solid var(--line);text-align:center;color:var(--muted);padding:22px 10px;font-size:12px}footer strong{color:var(--gold)}@media(max-width:600px){.logo{font-size:22px}.live-label{font-size:9px}nav button{padding:11px 10px;font-size:12px}main{margin-top:16px}.hero{padding:17px}.hero h1{font-size:22px}.ai-box{padding:13px}.setting-row{align-items:flex-start;flex-direction:column}}
+</style></head>
 <body>
-
-<header>
-  <div class="topline">
-    <div class="logo">KICKOFF <span>CLUB</span> ⚽</div>
-    <div class="tagline">Your football. Your club. Your game.</div>
-  </div>
-</header>
-
-<nav>
-  <button class="active" data-page="matches">Matches</button>
-  <button data-page="wolves">Wolves 🐺</button>
-  <button data-page="premier">Premier League</button>
-  <button data-page="championship">Championship</button>
-  <button data-page="ai">Kickoff AI</button>
-</nav>
-
+<header><div class="top"><div><div class="logo">KICKOFF <span>CLUB</span> ⚽</div><div class="tagline">YOUR FOOTBALL CENTRE</div></div><div class="live-label">● FOOTBALL HUB</div></div>
+<nav id="nav"><button class="active" data-page="home">Home</button><button data-page="myteams">My Teams</button><button data-page="wolves">Wolves 🐺</button><button data-page="matches">Matches</button><button data-page="leagues">Leagues</button><button data-page="ai">Kickoff AI</button><button data-page="settings">Settings ⚙️</button></nav></header>
 <main>
-
-<section class="page active" id="matches">
-  <h1>Matches ⚽</h1>
-  <div class="subtitle">Check the latest scores and fixtures.</div>
-  <div class="controls">
-    <button class="action" id="prevDay">← Previous</button>
-    <input type="date" id="matchDate">
-    <button class="action" id="nextDay">Next →</button>
-    <button class="action" id="todayBtn">Today</button>
-  </div>
-  <div class="section-title"><h2>Premier League</h2></div>
-  <div id="matchList"><div class="loading">Loading matches...</div></div>
-  <div class="section-title"><h2>Championship</h2></div>
-  <div id="champMatchList"><div class="loading">Loading matches...</div></div>
-</section>
-
-<section class="page" id="wolves">
-  <h1>Wolves 🐺</h1>
-  <div class="subtitle">All the latest Wolves fixtures and results.</div>
-  <div class="section-title"><h2>Upcoming fixtures</h2></div>
-  <div id="wolvesUpcoming"><div class="loading">Loading Wolves fixtures...</div></div>
-  <div class="section-title"><h2>Recent results</h2></div>
-  <div id="wolvesResults"><div class="loading">Loading Wolves results...</div></div>
-</section>
-
-<section class="page" id="premier">
-  <h1>Premier League 🏆</h1>
-  <div class="subtitle">The latest league standings.</div>
-  <div id="premierTable"><div class="loading">Loading league table...</div></div>
-</section>
-
-<section class="page" id="championship">
-  <h1>Championship 🏆</h1>
-  <div class="subtitle">The latest Championship standings.</div>
-  <div id="champTable"><div class="loading">Loading league table...</div></div>
-</section>
-
-<section class="page" id="ai">
-  <h1>Kickoff AI 🤖</h1>
-  <div class="subtitle">Match predictions based on team performance and home advantage.</div>
-  <div class="note">These are estimates, not guaranteed results. HOME WIN, DRAW and AWAY WIN are three different outcomes.</div>
-  <div id="aiMatches"><div class="loading">Getting upcoming matches...</div></div>
-</section>
-
-</main>
-
-<footer>Made by Liam 🐺</footer>
-
+<section id="home" class="page active"><div class="hero"><h1>Welcome to Kickoff Club ⚽</h1><p>Your football world, all in one place. Scores, fixtures, league tables and predictions.</p><div class="controls"><button class="btn primary" id="homeChoose">Choose my teams</button><button class="btn" data-goto="matches">See matches</button></div></div><div class="section-title"><h2>Your clubs</h2><span class="subtle">Up to 3 favourites</span></div><div id="homeFavs" class="fav-grid"><div class="empty">Choose your favourite teams to get started!</div></div><div class="section-title"><h2>Today's football</h2><span class="subtle">Across our featured leagues</span></div><div id="homeMatches" class="grid"><div class="loading">Loading matches...</div></div></section>
+<section id="myteams" class="page"><div class="hero"><h1>My Teams ⭐</h1><p>Your favourite clubs. Choose a team to see its fixtures, results and league information.</p><button class="btn primary" id="editFavs">Edit favourite teams</button></div><div id="myTeamPages" class="fav-grid"><div class="empty">Choose up to 3 favourite teams in Settings.</div></div><div id="favTeamDetail"></div></section>
+<section id="wolves" class="page"><div class="hero"><h1>Wolverhampton Wanderers 🐺</h1><p>Our special Wolves corner. Every fixture and result we can get from the football feed. Come on you Wolves!</p><span class="pill">OLD GOLD & BLACK</span></div><div class="section-title"><h2>Upcoming fixtures</h2><span class="subtle" id="wolvesUpcomingCount"></span></div><div id="wolvesUpcoming" class="grid"><div class="loading">Loading Wolves fixtures...</div></div><div class="section-title"><h2>Recent results</h2><span class="subtle" id="wolvesResultsCount"></span></div><div id="wolvesResults" class="grid"><div class="loading">Loading Wolves results...</div></div><p class="note">Fixtures and results are provided by ESPN's football data feed and may occasionally be delayed or unavailable.</p></section>
+<section id="matches" class="page"><div class="hero"><h1>Match Centre ⚽</h1><p>Fixtures, live scores and results from our featured leagues.</p></div><div class="controls"><button class="btn" id="prevDay">‹</button><input type="date" id="matchDate"><button class="btn" id="nextDay">›</button><button class="btn" id="todayBtn">Today</button><button class="btn primary" id="refreshBtn">↻ Refresh</button></div><div class="section-title"><h2 id="dateHeading">Matches</h2><span class="subtle" id="matchCount"></span></div><div id="allMatches" class="grid"><div class="loading">Loading football matches...</div></div></section>
+<section id="leagues" class="page"><div class="hero"><h1>Leagues 🏆</h1><p>Explore tables, clubs and matches from major leagues around the world.</p></div><div class="controls"><select id="leagueSelect" style="min-width:220px;flex:1"></select><input type="date" id="leagueDate"><button class="btn primary" id="leagueRefresh">Refresh</button></div><div class="section-title"><h2 id="leagueTitle">League table</h2><span class="subtle" id="leagueSeason"></span></div><div id="leagueTable" class="table-wrap"><div class="loading">Loading league table...</div></div><div class="section-title"><h2>Matches</h2></div><div id="leagueMatches" class="grid"><div class="loading">Loading matches...</div></div></section>
+<section id="ai" class="page"><div class="hero"><h1>Kickoff AI 🤖</h1><p>Choose a match and get an estimated result, score and win probabilities.</p></div><div class="controls"><select id="aiLeague"><option value="all">All featured leagues</option></select><input type="date" id="aiDate"><button class="btn" id="aiLoad">Load matches</button><select id="aiMatch" style="flex:1;min-width:200px"><option value="">Loading matches...</option></select><button class="btn primary" id="predictBtn">Predict match</button></div><div id="aiResult"><div class="empty">Choose a match and tap Predict match.</div></div><p class="note">Kickoff AI is an experimental estimate based on league performance data when available. It is not a guarantee, and football can always surprise us!</p></section>
+<section id="settings" class="page"><div class="hero"><h1>Settings ⚙️</h1><p>Make Kickoff Club yours. Your choices are saved on this device.</p></div><div class="card"><div class="setting-row"><div><strong>Favourite teams</strong><small>Choose up to 3 clubs and set your main club.</small></div><button class="btn primary" id="settingsTeams">Edit teams</button></div><div class="setting-row"><div><strong>Appearance</strong><small>Choose the look of Kickoff Club.</small></div><select id="themeSelect"><option value="dark">Night mode</option><option value="light">Light mode</option></select></div><div class="setting-row"><div><strong>Match notifications</strong><small>Notifications aren't available in this version yet.</small></div><span class="pill">Coming soon</span></div><div class="setting-row"><div><strong>Privacy</strong><small>Your favourite teams and appearance are stored locally in this browser. No email is needed.</small></div><span class="pill">On this device</span></div><div class="setting-row"><div><strong>About Kickoff Club</strong><small>Made for football fans. Built with ⚽ and a lot of love.</small></div><span class="pill">Version 2.0</span></div></div></section>
+</main><footer>Made by <strong>Liam 🐺</strong> · Kickoff Club</footer>
+<div class="modal" id="welcomeModal"><div class="modal-box"><h1>Welcome to Kickoff Club! ⚽</h1><p>Choose up to 3 favourite teams. Your first pick will be your main club. You can change them anytime in Settings.</p><input id="teamSearch" type="search" placeholder="Search for a team..." style="width:100%"><div class="controls"><select id="teamLeagueFilter" style="width:100%"><option value="all">All featured leagues</option></select></div><div id="teamResults" class="team-results"><div class="empty">Loading teams from the leagues...</div></div><div class="section-title"><span id="chosenCount" class="subtle">0 of 3 selected</span><div class="controls"><button class="btn" id="skipTeams">Maybe later</button><button class="btn primary" id="saveTeams">Save my teams</button></div></div><p class="note">Can't find a club? Try choosing its league first. Some competitions may not provide a full club list.</p></div></div>
 <script>
-const API = "https://site.api.espn.com/apis";
-const SEASON = new Date().getFullYear();
-const WOLVES_ID = "380";
-
-const LEAGUES = {
-  premier: {id:"eng.1", name:"Premier League"},
-  championship: {id:"eng.2", name:"Championship"}
-};
-
-let currentDate = new Date();
-let leagueStats = {premier:{}, championship:{}};
-let allStandings = {premier:[], championship:[]};
-
-const $ = id => document.getElementById(id);
-
-function dateString(date) {
-  return date.getFullYear() +
-    String(date.getMonth()+1).padStart(2,"0") +
-    String(date.getDate()).padStart(2,"0");
-}
-
-function readableDate(value) {
-  if (!value) return "Date TBC";
-  const d = new Date(value);
-  if (isNaN(d)) return "Date TBC";
-  return d.toLocaleDateString("en-GB",{
-    weekday:"short",day:"numeric",month:"short",year:"numeric"
-  });
-}
-
-function readableTime(value) {
-  if (!value) return "Time TBC";
-  const d = new Date(value);
-  if (isNaN(d)) return "Time TBC";
-  return d.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
-}
-
-function safe(value) {
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-
-async function getJSON(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error("Data feed returned " + response.status);
-  return response.json();
-}
-
-function teamInfo(competitor) {
-  const team = competitor?.team || {};
-  return {
-    id:String(team.id || ""),
-    name:team.displayName || team.name || "Unknown team",
-    logo:team.logo || team.logos?.[0]?.href || ""
-  };
-}
-
-function getCompetitors(event) {
-  const list = event.competitions?.[0]?.competitors || [];
-  const home = list.find(c => c.homeAway === "home") || list[0] || {};
-  const away = list.find(c => c.homeAway === "away") || list[1] || {};
-  return {home,away};
-}
-
-function eventStatus(event) {
-  const s = event.status?.type || {};
-  if (s.completed) return "done";
-  if (s.state === "in") return "live";
-  return "upcoming";
-}
-
-function matchHTML(event) {
-  const {home,away} = getCompetitors(event);
-  const h = teamInfo(home), a = teamInfo(away);
-  const status = eventStatus(event);
-  const hs = home.score ?? "-", as = away.score ?? "-";
-  let centre = status === "upcoming" ? "vs" : `${hs} - ${as}`;
-  let badge = status === "live" ? '<span class="badge live">LIVE</span>' :
-              status === "done" ? '<span class="badge done">FT</span>' :
-              '<span class="badge">UPCOMING</span>';
-  return `
-    <div class="card">
-      <div class="match-card">
-        <div class="team">
-          ${h.logo ? `<img src="${safe(h.logo)}" alt="">` : ""}
-          <span class="team-name">${safe(h.name)}</span>
-        </div>
-        <div>
-          <div class="score">${centre}</div>
-          <div class="match-meta">${readableTime(event.date)}</div>
-        </div>
-        <div class="team away">
-          <span class="team-name">${safe(a.name)}</span>
-          ${a.logo ? `<img src="${safe(a.logo)}" alt="">` : ""}
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:10px">${badge}</div>
-    </div>`;
-}
-
-async function loadScoreboard(league, date) {
-  const url = `${API}/site/v2/sports/soccer/${league}/scoreboard?dates=${date}&limit=100`;
-  return getJSON(url);
-}
-
-async function loadMatches() {
-  const date = dateString(currentDate);
-  $("matchDate").value =
-    `${date.slice(0,4)}-${date.slice(4,6)}-${date.slice(6,8)}`;
-
-  $("matchList").innerHTML = '<div class="loading">Loading matches...</div>';
-  $("champMatchList").innerHTML = '<div class="loading">Loading matches...</div>';
-
-  const results = await Promise.allSettled([
-    loadScoreboard("eng.1",date),
-    loadScoreboard("eng.2",date)
-  ]);
-
-  const targets = ["matchList","champMatchList"];
-  results.forEach((result,index) => {
-    const target = $(targets[index]);
-    if (result.status === "rejected") {
-      target.innerHTML = '<div class="error">Could not load matches right now. Try again in a moment.</div>';
-      return;
-    }
-    const events = result.value.events || [];
-    target.innerHTML = events.length
-      ? events.map(matchHTML).join("")
-      : '<div class="empty">No matches scheduled for this date.</div>';
-  });
-}
-
-function statValue(entry, patterns) {
-  const stats = entry.stats || [];
-  for (const pattern of patterns) {
-    const found = stats.find(s =>
-      pattern.test(String(s.name || "") + " " + String(s.abbreviation || ""))
-    );
-    if (found && found.value !== undefined && found.value !== null) {
-      const n = Number(found.value);
-      if (Number.isFinite(n)) return n;
-    }
-  }
-  return null;
-}
-
-function readStandingEntry(entry) {
-  const team = entry.team || {};
-  const played = statValue(entry,[/gamesPlayed/i,/matchesPlayed/i,/played/i,/^gp$/i]) ?? 0;
-  const wins = statValue(entry,[/^wins$/i,/^w$/i]) ?? 0;
-  const draws = statValue(entry,[/^ties$/i,/^draws$/i,/^d$/i]) ?? 0;
-  const losses = statValue(entry,[/^losses$/i,/^l$/i]) ?? 0;
-  const points = statValue(entry,[/^points$/i,/^pts$/i]) ?? 0;
-  const gf = statValue(entry,[/pointsFor/i,/goalsFor/i,/^gf$/i]) ?? 0;
-  const ga = statValue(entry,[/pointsAgainst/i,/goalsAgainst/i,/^ga$/i]) ?? 0;
-  const gd = statValue(entry,[/pointDifferential/i,/goalDifference/i,/^gd$/i]) ?? (gf-ga);
-
-  return {
-    id:String(team.id || ""),
-    name:team.displayName || team.name || "Unknown",
-    logo:team.logo || team.logos?.[0]?.href || "",
-    played,wins,draws,losses,points,gf,ga,gd
-  };
-}
-
-function collectEntries(node, output, seen) {
-  if (!node || typeof node !== "object") return;
-
-  if (Array.isArray(node)) {
-    node.forEach(item => collectEntries(item,output,seen));
-    return;
-  }
-
-  if (Array.isArray(node.entries)) {
-    node.entries.forEach(entry => {
-      if (entry && entry.team) {
-        const row = readStandingEntry(entry);
-        if (row.id && !seen.has(row.id)) {
-          seen.add(row.id);
-          output.push(row);
-        }
-      }
-    });
-  }
-
-  if (node.standings && node.standings !== node) {
-    collectEntries(node.standings,output,seen);
-  }
-  if (Array.isArray(node.children)) {
-    node.children.forEach(child => collectEntries(child,output,seen));
-  }
-}
-
-async function loadTable(key) {
-  const league = LEAGUES[key];
-  const target = key === "premier" ? "premierTable" : "champTable";
-  $(target).innerHTML = '<div class="loading">Loading league table...</div>';
-
-  try {
-    const url = `${API}/v2/sports/soccer/${league.id}/standings?season=${SEASON}`;
-    const data = await getJSON(url);
-    const rows = [];
-    collectEntries(data,rows,new Set());
-
-    if (!rows.length) throw new Error("No standings entries found");
-
-    rows.sort((a,b) => b.points-a.points || b.gd-a.gd || b.gf-a.gf);
-    allStandings[key] = rows;
-
-    leagueStats[key] = {};
-    rows.forEach(row => leagueStats[key][row.id] = row);
-
-    $(target).innerHTML = `
-      <div class="card table-wrap">
-        <table>
-          <thead><tr>
-            <th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th>
-            <th>GD</th><th>Pts</th>
-          </tr></thead>
-          <tbody>
-            ${rows.map((r,i)=>`
-              <tr>
-                <td>
-                  <div class="club-cell">
-                    <span class="pos">${i+1}</span>
-                    ${r.logo ? `<img src="${safe(r.logo)}" alt="">` : ""}
-                    <span>${safe(r.name)}</span>
-                  </div>
-                </td>
-                <td>${r.played}</td><td>${r.wins}</td><td>${r.draws}</td>
-                <td>${r.losses}</td><td>${r.gd>0?"+":""}${r.gd}</td>
-                <td class="points">${r.points}</td>
-              </tr>`).join("")}
-          </tbody>
-        </table>
-      </div>`;
-  } catch(error) {
-    console.error("Table loading error:",error);
-    $(target).innerHTML =
-      '<div class="error">Could not load league tables right now. Please try again later.</div>';
-  }
-}
-
-async function loadWolves() {
-  $("wolvesUpcoming").innerHTML = '<div class="loading">Loading Wolves fixtures...</div>';
-  $("wolvesResults").innerHTML = '<div class="loading">Loading Wolves results...</div>';
-
-  try {
-    const url = `${API}/site/v2/sports/soccer/eng.1/teams/${WOLVES_ID}/schedule?season=${SEASON}`;
-    const data = await getJSON(url);
-    let events = data.events || data.schedule || [];
-
-    if (!events.length && data.season) {
-      const fallback = await getJSON(
-        `${API}/site/v2/sports/soccer/eng.1/teams/${WOLVES_ID}/schedule?season=${SEASON}&fixture=true`
-      );
-      events = fallback.events || fallback.schedule || [];
-    }
-
-    const now = Date.now();
-    const upcoming = events.filter(e => new Date(e.date).getTime() >= now)
-      .sort((a,b)=>new Date(a.date)-new Date(b.date));
-    const results = events.filter(e => {
-      const {home,away} = getCompetitors(e);
-      return eventStatus(e) === "done" ||
-        (home.score !== undefined && away.score !== undefined);
-    }).sort((a,b)=>new Date(b.date)-new Date(a.date));
-
-    $("wolvesUpcoming").innerHTML = upcoming.length
-      ? upcoming.map(e=>`<div class="fixture-date">${readableDate(e.date)}</div>${matchHTML(e)}`).join("")
-      : '<div class="empty">No upcoming fixtures found in the feed.</div>';
-
-    $("wolvesResults").innerHTML = results.length
-      ? results.slice(0,30).map(e=>`<div class="fixture-date">${readableDate(e.date)}</div>${matchHTML(e)}`).join("")
-      : '<div class="empty">No recent results found.</div>';
-
-  } catch(error) {
-    console.error("Wolves schedule error:",error);
-    $("wolvesUpcoming").innerHTML =
-      '<div class="error">Could not load Wolves fixtures right now.</div>';
-    $("wolvesResults").innerHTML =
-      '<div class="error">Could not load Wolves results right now.</div>';
-  }
-}
-
-function getTeamRating(teamId,key) {
-  const row = leagueStats[key]?.[String(teamId)];
-  if (!row) return null;
-
-  const played = Math.max(row.played || 1,1);
-  const ppg = row.points / played;
-  const gdpg = row.gd / played;
-  const winRate = row.wins / played;
-
-  return {
-    ppg,
-    gdpg,
-    winRate,
-    attack:row.gf / played,
-    defence:row.ga / played
-  };
-}
-
-function logistic(x) {
-  return 1 / (1 + Math.exp(-x));
-}
-
-function predictMatch(event,key) {
-  const {home,away} = getCompetitors(event);
-  const h = teamInfo(home), a = teamInfo(away);
-  const hr = getTeamRating(h.id,key);
-  const ar = getTeamRating(a.id,key);
-
-  // If a team cannot be found in the table, use a neutral rating.
-  const homeStrength = hr ? hr.ppg*0.72 + hr.gdpg*0.16 + hr.winRate*0.65 : 1.35;
-  const awayStrength = ar ? ar.ppg*0.72 + ar.gdpg*0.16 + ar.winRate*0.65 : 1.35;
-
-  // Home advantage is included, but not enough to decide every match.
-  const difference = homeStrength - awayStrength + 0.30;
-  const homeShare = logistic(difference*0.72);
-
-  // Draw chance is highest when the teams look evenly matched.
-  const drawChance = 0.18 + 0.13*Math.exp(-Math.abs(difference)*1.25);
-  let homeChance = (1-drawChance)*homeShare;
-  let awayChance = (1-drawChance)*(1-homeShare);
-
-  // Convert to whole percentages that always add up to 100.
-  const hp = Math.round(homeChance*100);
-  const dp = Math.round(drawChance*100);
-  const ap = 100-hp-dp;
-
-  // Rough score estimate using each side's scoring/conceding record.
-  let homeGoals = 1.35 + (hr ? (hr.attack-hr.defence)*0.20 : 0) +
-                  (hr && ar ? (hr.attack-ar.defence)*0.16 : 0) + 0.12;
-  let awayGoals = 1.10 + (ar ? (ar.attack-ar.defence)*0.20 : 0) +
-                  (hr && ar ? (ar.attack-hr.defence)*0.16 : 0);
-
-  homeGoals = Math.max(0.35,Math.min(3.2,homeGoals));
-  awayGoals = Math.max(0.30,Math.min(3.0,awayGoals));
-
-  let hg = Math.round(homeGoals);
-  let ag = Math.round(awayGoals);
-
-  // Make the scoreline agree with the most likely outcome.
-  if (hp > dp && hp > ap && hg <= ag) hg = ag+1;
-  if (ap > hp && ap > dp && ag <= hg) ag = hg+1;
-  if (dp >= hp && dp >= ap && hg !== ag) {
-    const level = Math.round((hg+ag)/2);
-    hg = level; ag = level;
-  }
-
-  const sorted = [hp,dp,ap].sort((x,y)=>y-x);
-  const gap = sorted[0]-sorted[1];
-  const confidence = gap >= 22 ? "High" : gap >= 11 ? "Medium" : "Low";
-
-  let winner = "Draw";
-  if (hp > dp && hp > ap) winner = h.name;
-  else if (ap > hp && ap > dp) winner = a.name;
-  else if (dp > hp && dp > ap) winner = "Draw";
-  else winner = "Very close match — no clear favourite";
-
-  return {h,a,hp,dp,ap,hg,ag,winner,confidence};
-}
-
-function aiCard(event,key) {
-  const p = predictMatch(event,key);
-  return `
-    <div class="card ai-card">
-      <div class="fixture-date">${safe(LEAGUES[key].name)} · ${readableDate(event.date)} · ${readableTime(event.date)}</div>
-      <div class="ai-teams">
-        <div class="ai-team">
-          <div class="home-away">HOME</div>
-          ${p.h.logo ? `<img src="${safe(p.h.logo)}" alt="">` : ""}
-          <strong>${safe(p.h.name)}</strong>
-        </div>
-        <div class="pred-score">${p.hg} - ${p.ag}</div>
-        <div class="ai-team">
-          <div class="home-away">AWAY</div>
-          ${p.a.logo ? `<img src="${safe(p.a.logo)}" alt="">` : ""}
-          <strong>${safe(p.a.name)}</strong>
-        </div>
-      </div>
-      <div class="pred-winner">Predicted outcome: <span>${safe(p.winner)}</span></div>
-      <div class="prob-row">
-        <div class="prob"><strong>${p.hp}%</strong><small>HOME WIN</small></div>
-        <div class="prob"><strong>${p.dp}%</strong><small>DRAW</small></div>
-        <div class="prob"><strong>${p.ap}%</strong><small>AWAY WIN</small></div>
-      </div>
-      <div class="bar">
-        <span style="width:${p.hp}%"></span>
-        <span style="width:${p.dp}%"></span>
-        <span style="width:${p.ap}%"></span>
-      </div>
-      <div class="confidence">Prediction confidence: ${p.confidence}</div>
-    </div>`;
-}
-
-async function loadAI() {
-  $("aiMatches").innerHTML = '<div class="loading">Preparing predictions...</div>';
-
-  try {
-    // Load standings first so the predictions can compare team performance.
-    await Promise.all([
-      loadStandingsForAI("premier"),
-      loadStandingsForAI("championship")
-    ]);
-
-    const dates = [];
-    const today = new Date();
-    for (let i=0;i<15;i++) {
-      const d = new Date(today);
-      d.setDate(today.getDate()+i);
-      dates.push(dateString(d));
-    }
-
-    const requests = dates.map(date => Promise.allSettled([
-      loadScoreboard("eng.1",date),
-      loadScoreboard("eng.2",date)
-    ]));
-
-    const responses = await Promise.all(requests);
-    const upcoming = [];
-
-    responses.forEach(pair => {
-      pair.forEach((result,index) => {
-        if (result.status !== "fulfilled") return;
-        const leagueKey = index === 0 ? "premier" : "championship";
-        (result.value.events || []).forEach(event => {
-          if (eventStatus(event) === "upcoming") {
-            upcoming.push({event,key:leagueKey});
-          }
-        });
-      });
-    });
-
-    upcoming.sort((a,b)=>new Date(a.event.date)-new Date(b.event.date));
-
-    $("aiMatches").innerHTML = upcoming.length
-      ? upcoming.slice(0,20).map(item=>aiCard(item.event,item.key)).join("")
-      : '<div class="empty">No upcoming matches found over the next 15 days.</div>';
-
-  } catch(error) {
-    console.error("AI loading error:",error);
-    $("aiMatches").innerHTML =
-      '<div class="error">Could not load predictions right now. Please try again later.</div>';
-  }
-}
-
-async function loadStandingsForAI(key) {
-  // Reuse existing standings if already loaded.
-  if (allStandings[key]?.length) return;
-
-  const league = LEAGUES[key];
-  const url = `${API}/v2/sports/soccer/${league.id}/standings?season=${SEASON}`;
-  const data = await getJSON(url);
-  const rows = [];
-  collectEntries(data,rows,new Set());
-
-  leagueStats[key] = {};
-  rows.forEach(row => leagueStats[key][row.id] = row);
-  allStandings[key] = rows;
-}
-
-function showPage(page) {
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-  $(page).classList.add("active");
-  document.querySelector(`nav button[data-page="${page}"]`).classList.add("active");
-
-  if (page === "wolves") loadWolves();
-  if (page === "premier") loadTable("premier");
-  if (page === "championship") loadTable("championship");
-  if (page === "ai") loadAI();
-}
-
-document.querySelectorAll("nav button").forEach(button => {
-  button.addEventListener("click",()=>showPage(button.dataset.page));
-});
-
-$("prevDay").addEventListener("click",()=>{
-  currentDate.setDate(currentDate.getDate()-1);
-  loadMatches();
-});
-$("nextDay").addEventListener("click",()=>{
-  currentDate.setDate(currentDate.getDate()+1);
-  loadMatches();
-});
-$("todayBtn").addEventListener("click",()=>{
-  currentDate = new Date();
-  loadMatches();
-});
-$("matchDate").addEventListener("change",event=>{
-  if (!event.target.value) return;
-  currentDate = new Date(event.target.value+"T12:00:00");
-  loadMatches();
-});
-
-// Start the website.
-loadMatches();
-</script>
-</body>
-</html>
+const API='https://site.api.espn.com/apis/site/v2/sports/soccer/';
+const STANDINGS_API='https://site.api.espn.com/apis/v2/sports/soccer/';
+const SEASON=new Date().getFullYear();
+const LEAGUES=[
+ {id:'eng.1',name:'Premier League',country:'England'}, {id:'eng.2',name:'Championship',country:'England'},
+ {id:'esp.1',name:'La Liga',country:'Spain'}, {id:'ger.1',name:'Bundesliga',country:'Germany'},
+ {id:'ita.1',name:'Serie A',country:'Italy'}, {id:'fra.1',name:'Ligue 1',country:'France'},
+ {id:'ned.1',name:'Eredivisie',country:'Netherlands'}, {id:'por.1',name:'Primeira Liga',country:'Portugal'},
+ {id:'usa.1',name:'MLS',country:'USA'}, {id:'mex.1',name:'Liga MX',country:'Mexico'},
+ {id:'bra.1',name:'Brazilian Serie A',country:'Brazil'}, {id:'arg.1',name:'Argentine Primera',country:'Argentina'},
+ {id:'uefa.champions',name:'Champions League',country:'Europe'}, {id:'uefa.europa',name:'Europa League',country:'Europe'}
+];
+const WOLVES_ID='380';
+let selectedDate=new Date(), allGames=[], leagueGames=[], wolvesGames=[], teamDirectory=[], standingsCache={}, selectedTeams=[], editingTeams=false, aiGames=[];
+const $=id=>document.getElementById(id);
+function safe(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function dateKey(d){const x=new Date(d);return x.getFullYear()+String(x.getMonth()+1).padStart(2,'0')+String(x.getDate()).padStart(2,'0')}
+function dateInput(d){const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')}
+function niceDate(d){return new Date(d).toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'})}
+async function fetchJSON(url){const r=await fetch(url);if(!r.ok)throw new Error('Request failed ('+r.status+')');return r.json()}
+function compOf(e){return e.competitions?.[0]||{}}
+function matchInfo(e,league){const c=compOf(e),a=c.competitors||[],h=a.find(t=>t.homeAway==='home')||a[0]||{},v=a.find(t=>t.homeAway==='away')||a[1]||{},s=c.status||e.status||{};return{id:String(e.id||''),date:e.date||new Date().toISOString(),home:h.team||{},away:v.team||{},homeScore:h.score??'',awayScore:v.score??'',state:s.type?.state||'pre',status:s.type?.shortDetail||s.type?.detail||'',homeForm:h.form||'',awayForm:v.form||'',league:league?.id||'',leagueName:league?.name||'',raw:e}}
+async function scoreboard(league,date){const d=await fetchJSON(API+league+'/scoreboard?dates='+dateKey(date)+'&limit=100');return(d.events||[]).map(e=>matchInfo(e,LEAGUES.find(l=>l.id===league)||{id:league,name:league}));}
+function card(m){const h=m.home||{},a=m.away||{},played=m.state==='post',live=m.state==='in',score=played||live?safe(m.homeScore)+' - '+safe(m.awayScore):'vs',status=live?'● LIVE':played?'FULL TIME':(m.status||new Date(m.date).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));return `<article class="card"><div class="match-top"><span>${niceDate(m.date)}</span><span class="status ${live?'live':''}">${safe(status)}</span></div><div class="teams"><div class="team">${h.logo?`<img src="${safe(h.logo)}" alt="">`:''}<div class="team-name">${safe(h.displayName||h.name||'Home')}</div></div><div class="team away"><div class="team-name">${safe(a.displayName||a.name||'Away')}</div>${a.logo?`<img src="${safe(a.logo)}" alt="">`:''}</div></div><div class="scoreline">${score}</div><div class="match-footer"><span>${safe(m.leagueName||'Football')}</span><span>${live?'In progress':played?'Result':'Kick-off'}</span></div></article>`}
+function renderCards(id,games,msg){const el=$(id);if(!games?.length){el.innerHTML=`<div class="empty">${msg}</div>`;return}el.innerHTML=games.map(card).join('')}
+function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='wolves')loadWolves();if(page==='leagues')loadLeaguePage();if(page==='myteams')renderMyTeams();if(page.startsWith('favteam'))loadFavouritePage(Number(page.replace('favteam','')))}
+function renderFavouriteTabs(){document.querySelectorAll('[data-dynamic-fav]').forEach(b=>b.remove());document.querySelectorAll('[data-dynamic-fav-page]').forEach(p=>p.remove());const nav=$('nav'),before=nav.querySelector('[data-page="wolves"]');selectedTeams.forEach((t,i)=>{const key='favteam'+i;const button=document.createElement('button');button.dataset.page=key;button.dataset.dynamicFav='1';button.textContent=(t.shortName||t.name).slice(0,18);button.title=t.name;button.addEventListener('click',()=>go(key));nav.insertBefore(button,before);const section=document.createElement('section');section.id=key;section.className='page';section.dataset.dynamicFavPage='1';section.innerHTML=`<div class="hero"><h1>${safe(t.name)} ${i===0?'⭐':''}</h1><p>${safe(t.nameLeague)} · Your club page</p></div><div class="section-title"><h2>Upcoming fixtures</h2></div><div id="${key}-up" class="grid"><div class="loading">Loading fixtures...</div></div><div class="section-title"><h2>Recent results</h2></div><div id="${key}-past" class="grid"><div class="loading">Loading results...</div></div>`;document.querySelector('main').appendChild(section)})}
+async function loadFavouritePage(index){const team=selectedTeams[index];if(!team)return;const key='favteam'+index;const up=$(key+'-up'),past=$(key+'-past');if(!up||!past)return;up.innerHTML='<div class="loading">Loading fixtures...</div>';past.innerHTML='<div class="loading">Loading results...</div>';try{const games=await teamSchedule(team),now=Date.now(),future=games.filter(m=>m.state!=='post'&&new Date(m.date).getTime()>now-3*60*60*1000),done=games.filter(m=>m.state==='post').reverse();renderCards(key+'-up',future,'No upcoming fixtures found for this club.');renderCards(key+'-past',done.slice(0,20),'No completed results found for this club.')}catch(e){up.innerHTML='<div class="empty">Could not load this club’s fixtures right now.</div>';past.innerHTML='<div class="empty">Could not load this club’s results right now.</div>'}}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.goto)));
+async function loadMatchCentre(){const date=selectedDate;$('dateHeading').textContent=niceDate(date);$('allMatches').innerHTML='<div class="loading">Loading matches from our leagues...</div>';const results=await Promise.allSettled(LEAGUES.map(l=>scoreboard(l.id,date)));allGames=[];results.forEach((r,i)=>{if(r.status==='fulfilled')allGames.push(...r.value)});allGames.sort((a,b)=>new Date(a.date)-new Date(b.date));$('matchCount').textContent=allGames.length+' matches · '+results.filter(r=>r.status==='fulfilled').length+'/'+LEAGUES.length+' leagues loaded';renderCards('allMatches',allGames,results.every(r=>r.status==='rejected')?'The match feed is unavailable right now. Try refreshing.':'No matches listed for this date. Try another day.');renderCards('homeMatches',allGames.slice(0,6),'No matches listed today.');updateAIMatches();}
+function stat(entry,names){const stats=entry?.stats||[];for(const n of names){const x=stats.find(s=>String(s.name||s.type||'').toLowerCase()===n.toLowerCase());if(x){const v=x.value??x.displayValue;if(v!==undefined&&v!==null&&v!=='')return Number(String(v).replace(/,/g,''))}}return null}
+function entriesFrom(data){const found=[],seenNodes=new Set();function walk(node){if(!node||typeof node!=='object'||seenNodes.has(node))return;seenNodes.add(node);if(Array.isArray(node.entries))found.push(...node.entries);for(const [k,v] of Object.entries(node)){if(k==='entries')continue;if(v&&typeof v==='object')Array.isArray(v)?v.forEach(walk):walk(v)}}walk(data);const ids=new Set();return found.filter(e=>e?.team?.id&&!ids.has(String(e.team.id))&&ids.add(String(e.team.id)))}
+function teamStats(entry){const p=stat(entry,['gamesPlayed','games','played'])??0,w=stat(entry,['wins'])??0,d=stat(entry,['ties','draws'])??0,l=stat(entry,['losses'])??0,gd=stat(entry,['pointDifferential','goalDifference','goalDiff'])??0,pts=stat(entry,['points'])??(w*3+d),gf=stat(entry,['pointsFor','goalsFor','for'])??null,ga=stat(entry,['pointsAgainst','goalsAgainst','against'])??null;return{p,w,d,l,gd,pts,gf,ga,ppg:p?pts/p:0,gdpg:p?gd/p:0,win:p?w/p:0}}
+async function loadStandings(league){if(standingsCache[league])return standingsCache[league];const data=await fetchJSON(STANDINGS_API+league+'/standings?season='+SEASON);let entries=entriesFrom(data);if(!entries.length)throw new Error('No standings rows in feed');entries=entries.map(e=>({...e,parsed:teamStats(e)})).sort((a,b)=>b.parsed.pts-a.parsed.pts||b.parsed.gd-a.parsed.gd||(b.parsed.gf??0)-(a.parsed.gf??0));standingsCache[league]=entries;entries.forEach(e=>{const t=e.team||{};const rec={id:String(t.id),name:t.displayName||t.name||'Club',shortName:t.abbreviation||'',logo:t.logos?.[0]?.href||t.logo||'',league,nameLeague:LEAGUES.find(l=>l.id===league)?.name||league,stats:e.parsed,entry:e};const i=teamDirectory.findIndex(x=>x.id===rec.id&&x.league===league);if(i>=0)teamDirectory[i]=rec;else teamDirectory.push(rec)});return entries}
+function renderTable(boxId,league,entries){const box=$(boxId);const list=[...entries].sort((a,b)=>b.parsed.pts-a.parsed.pts||b.parsed.gd-a.parsed.gd||(b.parsed.gf??0)-(a.parsed.gf??0));box.innerHTML=`<table><thead><tr><th>#</th><th style="text-align:left">CLUB</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>PTS</th></tr></thead><tbody>${list.map((e,i)=>{const t=e.team||{},s=e.parsed||teamStats(e),id=String(t.id||'');return `<tr class="${id===WOLVES_ID?'highlight':''}"><td>${i+1}</td><td class="club">${t.logos?.[0]?.href||t.logo?`<img src="${safe(t.logos?.[0]?.href||t.logo)}" alt="">`:''}${safe(t.displayName||t.name||'Club')}</td><td>${s.p||'—'}</td><td>${s.w}</td><td>${s.d}</td><td>${s.l}</td><td>${s.gd>0?'+':''}${s.gd}</td><td><strong>${s.pts}</strong></td></tr>`}).join('')}</tbody></table>`}
+async function loadLeaguePage(){const league=$('leagueSelect').value||'eng.1';const conf=LEAGUES.find(l=>l.id===league)||LEAGUES[0];$('leagueTitle').textContent=conf.name+' table';$('leagueSeason').textContent=SEASON+'/'+String(SEASON+1).slice(-2)+' season';$('leagueTable').innerHTML='<div class="loading">Loading league table...</div>';try{const rows=await loadStandings(league);renderTable('leagueTable',league,rows)}catch(e){$('leagueTable').innerHTML='<div class="empty">The table could not be loaded from the data feed. Try again in a moment.</div>'}const date=$('leagueDate').value||dateInput(new Date());$('leagueMatches').innerHTML='<div class="loading">Loading matches...</div>';try{renderCards('leagueMatches',await scoreboard(league,new Date(date+'T12:00:00')),'No matches listed for this date.')}catch(e){$('leagueMatches').innerHTML='<div class="empty">Matches could not be loaded.</div>'}}
+function fillLeagueSelects(){const options=LEAGUES.map(l=>`<option value="${l.id}">${safe(l.name)} · ${safe(l.country)}</option>`).join('');$('leagueSelect').innerHTML=options;$('teamLeagueFilter').innerHTML='<option value="all">All featured leagues</option>'+options;$('aiLeague').innerHTML='<option value="all">All featured leagues</option>'+options}
+function collectScheduleEvents(data){const events=[],seen=new Set();function walk(n){if(!n||typeof n!=='object'||seen.has(n))return;seen.add(n);if(Array.isArray(n.events))events.push(...n.events);if(Array.isArray(n.items))n.items.forEach(x=>{if(x?.competitions||x?.date)events.push(x)});for(const [k,v] of Object.entries(n)){if(k==='events'||k==='items')continue;if(v&&typeof v==='object')Array.isArray(v)?v.forEach(walk):walk(v)}}walk(data);const unique=new Map();events.forEach(e=>{if(e?.id)unique.set(String(e.id),e)});return [...unique.values()]}
+async function teamSchedule(team){const url=API+team.league+'/teams/'+team.id+'/schedule?season='+SEASON;const data=await fetchJSON(url);return collectScheduleEvents(data).map(e=>matchInfo(e,LEAGUES.find(l=>l.id===team.league)||{id:team.league,name:team.nameLeague})).filter(m=>[String(m.home.id),String(m.away.id)].includes(team.id)).sort((a,b)=>new Date(a.date)-new Date(b.date))}
+async function loadWolves(){const box1=$('wolvesUpcoming'),box2=$('wolvesResults');box1.innerHTML='<div class="loading">Loading Wolves fixtures...</div>';box2.innerHTML='<div class="loading">Loading Wolves results...</div>';try{const team={id:WOLVES_ID,league:'eng.1',name:'Wolverhampton Wanderers'};wolvesGames=await teamSchedule(team);const now=Date.now(),up=wolvesGames.filter(m=>m.state!=='post'&&new Date(m.date).getTime()>now-3*60*60*1000),past=wolvesGames.filter(m=>m.state==='post').reverse();$('wolvesUpcomingCount').textContent=up.length+' fixtures';$('wolvesResultsCount').textContent=past.length+' results';renderCards('wolvesUpcoming',up,'No upcoming Wolves fixtures were returned by the feed.');renderCards('wolvesResults',past.slice(0,20),'No completed Wolves results were returned by the feed.')}catch(e){box1.innerHTML='<div class="empty">Could not load the Wolves schedule right now. Please try again later.</div>';box2.innerHTML='<div class="empty">Wolves results are unavailable right now.</div>'}}
+function loadFavouriteTeam(team){$('favTeamDetail').innerHTML=`<div class="section-title"><h2>${safe(team.name)}</h2><span class="pill">${safe(team.nameLeague)}</span></div><div class="grid" id="favSchedule"><div class="loading">Loading ${safe(team.name)} fixtures and results...</div></div>`;teamSchedule(team).then(games=>{const now=Date.now(),up=games.filter(m=>m.state!=='post'&&new Date(m.date).getTime()>now-3*60*60*1000),past=games.filter(m=>m.state==='post').reverse();$('favSchedule').innerHTML=`<div class="section-title" style="grid-column:1/-1"><h2>Upcoming fixtures</h2><span class="subtle">${up.length} matches</span></div>${up.length?up.map(card).join(''):'<div class="empty">No upcoming fixtures found.</div>'}<div class="section-title" style="grid-column:1/-1"><h2>Recent results</h2><span class="subtle">${past.length} matches</span></div>${past.length?past.slice(0,10).map(card).join(''):'<div class="empty">No recent results found.</div>'}`}).catch(()=>$('favSchedule').innerHTML='<div class="empty">Fixtures for this club could not be loaded from the feed.</div>')}
+function saveLocal(){localStorage.setItem('kc_favourites',JSON.stringify(selectedTeams));}
+function loadLocal(){try{selectedTeams=JSON.parse(localStorage.getItem('kc_favourites')||'[]')}catch{selectedTeams=[]}const theme=localStorage.getItem('kc_theme')||'dark';$('themeSelect').value=theme;setTheme(theme)}
+function setTheme(theme){if(theme==='light'){document.documentElement.style.setProperty('--bg','#f1f4f8');document.documentElement.style.setProperty('--panel','#fff');document.documentElement.style.setProperty('--panel2','#e8edf3');document.documentElement.style.setProperty('--line','#d4dce5');document.documentElement.style.setProperty('--text','#182333');document.documentElement.style.setProperty('--muted','#64748b');document.body.style.background='#f1f4f8'}else{['--bg','--panel','--panel2','--line','--text','--muted'].forEach((v,i)=>document.documentElement.style.removeProperty(v));document.body.style.background='var(--bg)'}}
+function renderFavTiles(){renderFavouriteTabs();const html=selectedTeams.map((t,i)=>`<button class="team-tile ${i===0?'chosen':''}" data-team-index="${i}">${t.logo?`<img src="${safe(t.logo)}" alt="">`:''}<span><strong>${safe(t.name)} ${i===0?'⭐':''}</strong><small>${safe(t.nameLeague)} · ${i===0?'Main favourite':'Favourite '+(i+1)}</small></span></button>`).join('');$('homeFavs').innerHTML=html||'<div class="empty">No favourite teams chosen yet. Tap “Choose my teams” to get started.</div>';document.querySelectorAll('[data-team-index]').forEach(b=>b.addEventListener('click',()=>{const t=selectedTeams[Number(b.dataset.teamIndex)];go('myteams');loadFavouriteTeam(t)}));}
+function renderMyTeams(){const html=selectedTeams.map((t,i)=>`<div><button class="team-tile" data-open-team="${i}">${t.logo?`<img src="${safe(t.logo)}" alt="">`:''}<span><strong>${safe(t.name)} ${i===0?'⭐':''}</strong><small>${safe(t.nameLeague)} · View fixtures & results</small></span></button><div class="controls" style="margin:6px 0 14px">${i!==0?`<button class="btn" data-main-team="${i}">Make main favourite</button>`:''}<button class="btn" data-remove-team="${i}">Remove</button></div></div>`).join('');$('myTeamPages').innerHTML=html||'<div class="empty">You have not chosen any teams yet. Use the button below to choose up to 3.</div>';document.querySelectorAll('[data-open-team]').forEach(b=>b.addEventListener('click',()=>loadFavouriteTeam(selectedTeams[Number(b.dataset.openTeam)])));document.querySelectorAll('[data-main-team]').forEach(b=>b.addEventListener('click',()=>{const t=selectedTeams.splice(Number(b.dataset.mainTeam),1)[0];selectedTeams.unshift(t);saveLocal();renderFavouriteTabs();renderMyTeams();renderFavTiles()}));document.querySelectorAll('[data-remove-team]').forEach(b=>b.addEventListener('click',()=>{selectedTeams.splice(Number(b.dataset.removeTeam),1);saveLocal();renderFavouriteTabs();renderMyTeams();renderFavTiles()}));}
+function openTeamPicker(edit){editingTeams=!!edit;$('welcomeModal').classList.add('show');$('teamSearch').value='';renderTeamSearch();$('teamSearch').focus()}
+function renderTeamSearch(){const query=$('teamSearch').value.trim().toLowerCase(),league=$('teamLeagueFilter').value;let teams=teamDirectory.filter(t=>(league==='all'||t.league===league)&&(!query||t.name.toLowerCase().includes(query)||t.shortName.toLowerCase().includes(query)));teams=teams.slice(0,80);$('teamResults').innerHTML=teams.length?teams.map(t=>{const active=selectedTeams.some(s=>s.id===t.id&&s.league===t.league);return `<button class="team-tile ${active?'chosen':''}" data-pick="${safe(t.league+'|'+t.id)}">${t.logo?`<img src="${safe(t.logo)}" alt="">`:''}<span><strong>${safe(t.name)}</strong><small>${safe(t.nameLeague)}</small></span></button>`}).join(''):'<div class="empty">No clubs found. Try another search or league.</div>';$('chosenCount').textContent=selectedTeams.length+' of 3 selected';document.querySelectorAll('[data-pick]').forEach(b=>b.addEventListener('click',()=>{const [l,id]=b.dataset.pick.split('|'),t=teamDirectory.find(x=>x.league===l&&x.id===id);if(!t)return;const index=selectedTeams.findIndex(x=>x.id===id&&x.league===l);if(index>=0)selectedTeams.splice(index,1);else if(selectedTeams.length<3)selectedTeams.push(t);renderTeamSearch()}));}
+async function loadTeamDirectory(){$('teamResults').innerHTML='<div class="loading">Finding clubs in the featured leagues...</div>';const results=await Promise.allSettled(LEAGUES.map(l=>loadStandings(l.id)));const loaded=results.filter(r=>r.status==='fulfilled').length;renderTeamSearch();if(!loaded)$('teamResults').innerHTML='<div class="empty">Club lists could not be loaded. Try again later.</div>'}
+function savePickedTeams(){saveLocal();$('welcomeModal').classList.remove('show');renderFavouriteTabs();renderFavTiles();renderMyTeams();if(!selectedTeams.length&&editingTeams)go('settings');else go('myteams');}
+function updateAIMatches(){const league=$('aiLeague').value,date=$('aiDate').value||dateInput(new Date());if(date!==dateInput(selectedDate)){}const filtered=allGames.filter(g=>dateInput(g.date)===date&&(league==='all'||g.league===league));aiGames=filtered;$('aiMatch').innerHTML=filtered.length?filtered.map((g,i)=>`<option value="${i}">${safe(g.home.displayName||g.home.name)} vs ${safe(g.away.displayName||g.away.name)} · ${safe(g.leagueName)}</option>`).join(''):'<option value="">No matches for this date. Load matches first.</option>'}
+async function loadAIMatches(){const date=$('aiDate').value||dateInput(new Date());$('aiMatch').innerHTML='<option>Loading matches...</option>';const results=await Promise.allSettled(LEAGUES.map(l=>scoreboard(l.id,new Date(date+'T12:00:00'))));allGames=results.flatMap(r=>r.status==='fulfilled'?r.value:[]);updateAIMatches()}
+function poisson(lambda,k){let p=Math.exp(-lambda);for(let i=1;i<=k;i++)p*=lambda/i;return p}
+function predictMatch(m){const homeName=m.home.displayName||m.home.name,awayName=m.away.displayName||m.away.name;const find=(team)=>{for(const league of LEAGUES){const row=(standingsCache[league.id]||[]).find(e=>String(e.team?.id)===String(team.id));if(row)return row.parsed}return null};const hs=find(m.home),as=find(m.away);let hp=.43,dp=.27,ap=.30,confidence='LOW',reason='Limited league statistics were available, so this is a cautious estimate.';if(hs&&as&&hs.p>0&&as.p>0){const diff=(hs.ppg-as.ppg)*.48+(hs.gdpg-as.gdpg)*.10+(hs.win-as.win)*.28;hp=Math.max(.18,Math.min(.70,.43+diff*.13+.035));ap=Math.max(.14,Math.min(.62,.29-diff*.13));dp=Math.max(.16,1-hp-ap);const total=hp+dp+ap;hp/=total;dp/=total;ap/=total;confidence=Math.abs(diff)>.85?'MEDIUM':'LOW';reason='Estimate compares points per game, goal difference per game and win rate, with a small home advantage.'}
+const homeX=hs&&hs.p?Math.max(.45,Math.min(2.4,1.15+(hs.gdpg||0)*.10+(hs.ppg-1.3)*.18)):(1.15+hp*.25);const awayX=as&&as.p?Math.max(.4,Math.min(2.2,1.0+(as.gdpg||0)*.10+(as.ppg-1.3)*.18)):(1.0+ap*.25);let hwin=0,draw=0,awin=0,best=-1,bestH=1,bestA=1;for(let h=0;h<=5;h++)for(let a=0;a<=5;a++){const p=poisson(homeX,h)*poisson(awayX,a);if(h>a)hwin+=p;else if(h===a)draw+=p;else awin+=p;if(p>best){best=p;bestH=h;bestA=a}}const sum=hwin+draw+awin;const probs=[Math.round(hwin/sum*100),Math.round(draw/sum*100),Math.round(awin/sum*100)];probs[2]=100-probs[0]-probs[1];const winner=probs[0]>=probs[1]&&probs[0]>=probs[2]?homeName:probs[2]>=probs[1]?awayName:'Draw';return{probs,winner,score:bestH+' - '+bestA,confidence,reason,homeName,awayName}}
+async function runPrediction(){const m=aiGames[Number($('aiMatch').value)];if(!m){$('aiResult').innerHTML='<div class="empty">No match selected. Choose a date with fixtures and load matches.</div>';return}$('aiResult').innerHTML='<div class="loading">Checking team performance...</div>';await Promise.allSettled(LEAGUES.map(l=>loadStandings(l.id)));const p=predictMatch(m);$('aiResult').innerHTML=`<div class="ai-box"><div class="match-top"><span>KICKOFF AI ESTIMATE</span><span>${niceDate(m.date)}</span></div><div class="ai-teams"><div class="ai-team">${m.home.logo?`<img src="${safe(m.home.logo)}" alt="">`:''}<strong>${safe(p.homeName)}</strong><small>HOME</small></div><div class="vs">VS</div><div class="ai-team">${m.away.logo?`<img src="${safe(m.away.logo)}" alt="">`:''}<strong>${safe(p.awayName)}</strong><small>AWAY</small></div></div><div class="prediction"><div class="subtle">MOST LIKELY OUTCOME</div><div class="winner">${safe(p.winner==='Draw'?'A draw':p.winner+' to win')}</div><div class="subtle">Predicted score</div><div class="score">${p.score}</div><span class="confidence">CONFIDENCE: ${p.confidence}</span></div><div class="section-title"><h2>Win probabilities</h2></div><div class="probabilities"><div class="prob"><strong>${p.probs[0]}%</strong><small>HOME WIN</small></div><div class="prob"><strong>${p.probs[1]}%</strong><small>DRAW</small></div><div class="prob"><strong>${p.probs[2]}%</strong><small>AWAY WIN</small></div></div><p class="note">${safe(p.reason)} This is a model estimate, not a guarantee. Probabilities may not reflect injuries, line-ups or other latest news.</p></div>`}
+// Controls and first load
+$('homeChoose').onclick=()=>openTeamPicker(false);$('editFavs').onclick=()=>openTeamPicker(true);$('settingsTeams').onclick=()=>openTeamPicker(true);$('saveTeams').onclick=savePickedTeams;$('skipTeams').onclick=()=>$('welcomeModal').classList.remove('show');$('teamSearch').addEventListener('input',renderTeamSearch);$('teamLeagueFilter').addEventListener('change',renderTeamSearch);$('themeSelect').addEventListener('change',e=>{localStorage.setItem('kc_theme',e.target.value);setTheme(e.target.value)});
+$('prevDay').onclick=()=>{selectedDate.setDate(selectedDate.getDate()-1);$('matchDate').value=dateInput(selectedDate);loadMatchCentre()};$('nextDay').onclick=()=>{selectedDate.setDate(selectedDate.getDate()+1);$('matchDate').value=dateInput(selectedDate);loadMatchCentre()};$('todayBtn').onclick=()=>{selectedDate=new Date();$('matchDate').value=dateInput(selectedDate);loadMatchCentre()};$('matchDate').onchange=e=>{selectedDate=new Date(e.target.value+'T12:00:00');loadMatchCentre()};$('refreshBtn').onclick=()=>{loadMatchCentre();loadWolves()};$('leagueRefresh').onclick=loadLeaguePage;$('leagueSelect').onchange=loadLeaguePage;$('leagueDate').onchange=loadLeaguePage;$('aiLeague').onchange=updateAIMatches;$('aiLoad').onclick=loadAIMatches;$('predictBtn').onclick=runPrediction;
+fillLeagueSelects();loadLocal();$('matchDate').value=dateInput(new Date());$('leagueDate').value=dateInput(new Date());$('aiDate').value=dateInput(new Date());$('leagueSelect').value='eng.1';loadMatchCentre();loadWolves();loadStandings('eng.1').then(()=>{}).catch(()=>{});loadStandings('eng.2').catch(()=>{});loadTeamDirectory();if(!selectedTeams.length){$('welcomeModal').classList.add('show')}else{renderFavouriteTabs();renderFavTiles();renderMyTeams()}
+setInterval(()=>{loadMatchCentre();loadWolves()},300000);
+</script></body></html>
