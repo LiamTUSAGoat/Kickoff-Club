@@ -6,14 +6,16 @@
 <title>Kickoff Club ⚽</title>
 <style>
 :root {
-  --bg:#10151d;
-  --panel:#1b2430;
-  --panel2:#222e3c;
-  --text:#f5f7fa;
-  --muted:#9eabb9;
-  --gold:#f4bd36;
-  --green:#39c58b;
-  --red:#ed6868;
+  --bg:#0b1018;
+  --panel:#141d29;
+  --panel2:#1b2735;
+  --line:#293747;
+  --text:#f4f7fb;
+  --muted:#9aabba;
+  --gold:#f5bd45;
+  --gold2:#ffda80;
+  --green:#39cf91;
+  --red:#ff6868;
 }
 * { box-sizing:border-box; }
 body {
@@ -22,716 +24,874 @@ body {
   color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
 }
+button,select { font:inherit; }
 header {
-  background:#18212c;
-  padding:17px 18px;
-  border-bottom:1px solid #303b49;
-  position:sticky;
-  top:0;
-  z-index:5;
+  background:#101925;
+  border-bottom:1px solid var(--line);
+  padding:20px 16px 0;
 }
-.header-inner {
-  max-width:1050px;
+.top {
+  max-width:1100px;
   margin:auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:12px;
+  padding-bottom:17px;
 }
 .logo {
-  font-size:23px;
+  font-size:25px;
   font-weight:900;
   letter-spacing:-1px;
 }
 .logo span { color:var(--gold); }
+.tagline {
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:2px;
+  margin-top:5px;
+}
 .live-label {
   color:var(--green);
-  font-size:12px;
+  font-size:11px;
   font-weight:bold;
-}
-main {
-  max-width:1050px;
-  margin:auto;
-  padding:18px 14px 45px;
+  letter-spacing:1px;
 }
 nav {
+  max-width:1100px;
+  margin:auto;
   display:flex;
-  gap:8px;
+  gap:5px;
   overflow-x:auto;
-  padding-bottom:14px;
 }
 nav button {
-  flex-shrink:0;
   border:0;
-  background:var(--panel);
+  background:transparent;
   color:var(--muted);
-  padding:11px 15px;
-  border-radius:9px;
+  padding:13px 15px;
+  white-space:nowrap;
+  border-bottom:3px solid transparent;
+  cursor:pointer;
   font-weight:bold;
-  font-size:13px;
 }
 nav button.active {
-  background:var(--gold);
-  color:#171717;
+  color:var(--gold);
+  border-bottom-color:var(--gold);
 }
-h1 { font-size:26px; margin:13px 0 5px; }
-h2 { font-size:19px; margin:0 0 13px; }
-.subtitle { color:var(--muted); font-size:13px; }
-.panel {
-  background:var(--panel);
-  border:1px solid #303b49;
-  border-radius:13px;
-  padding:16px;
-  margin:14px 0;
+main {
+  max-width:1100px;
+  margin:25px auto;
+  padding:0 15px 40px;
 }
+.page { display:none; }
+.page.active { display:block; }
+.hero {
+  background:linear-gradient(120deg,#1c2a3b,#172231);
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:23px;
+  margin-bottom:20px;
+}
+.hero h1 { margin:0 0 7px; font-size:26px; }
+.hero p { color:var(--muted); margin:0; line-height:1.5; }
 .section-title {
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin-bottom:13px;
+  margin:25px 0 13px;
 }
-.section-title h2 { margin:0; }
-button,select,input { font:inherit; }
-.action {
-  background:var(--gold);
-  color:#151515;
-  border:0;
-  border-radius:8px;
-  padding:10px 13px;
-  font-weight:bold;
-  cursor:pointer;
-}
-.secondary {
-  background:var(--panel2);
-  color:var(--text);
-  border:1px solid #394655;
-  border-radius:8px;
-  padding:9px 12px;
-}
-.date-row {
+.section-title h2 { margin:0; font-size:19px; }
+.subtle { color:var(--muted); font-size:12px; }
+.controls {
   display:flex;
-  gap:8px;
   align-items:center;
   flex-wrap:wrap;
+  gap:8px;
+  margin:15px 0;
 }
-input[type=date] {
+.btn, select, input[type="date"] {
   background:var(--panel2);
-  color:white;
-  border:1px solid #394655;
-  border-radius:8px;
-  padding:9px;
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:10px 12px;
 }
-.match {
+.btn { cursor:pointer; font-weight:bold; }
+.btn.primary {
+  background:var(--gold);
+  color:#15191e;
+  border-color:var(--gold);
+}
+.btn:active { transform:scale(.98); }
+select { max-width:100%; }
+.grid {
   display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  gap:9px;
-  padding:13px 4px;
-  border-bottom:1px solid #303b49;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:12px;
 }
-.match:last-child { border-bottom:0; }
+.card {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:15px;
+}
+.match-top {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:13px;
+}
+.status { font-weight:bold; }
+.status.live { color:var(--green); }
+.teams {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
 .team {
   display:flex;
   align-items:center;
   gap:8px;
   min-width:0;
-  font-size:13px;
-  font-weight:bold;
 }
 .team.away { justify-content:flex-end; text-align:right; }
 .team img {
-  width:27px;
-  height:27px;
+  width:29px;
+  height:29px;
   object-fit:contain;
+  flex-shrink:0;
 }
-.score {
-  min-width:65px;
-  text-align:center;
-  font-size:18px;
-  font-weight:900;
-}
-.status {
-  display:block;
-  color:var(--muted);
-  font-size:10px;
-  font-weight:normal;
-  margin-top:4px;
-}
-.status.live { color:var(--green); }
-.competition {
-  color:var(--gold);
-  font-size:11px;
+.team-name {
+  font-size:13px;
   font-weight:bold;
-  margin:13px 0 3px;
+  overflow-wrap:anywhere;
 }
-.empty,.error {
+.scoreline {
   text-align:center;
-  padding:22px 8px;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.6;
+  font-size:21px;
+  font-weight:900;
+  margin:12px 0 4px;
 }
-.error { color:#ff9b9b; }
-.table-wrap { overflow-x:auto; }
+.match-footer {
+  border-top:1px solid var(--line);
+  padding-top:10px;
+  margin-top:12px;
+  color:var(--muted);
+  font-size:11px;
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+.side-label {
+  display:inline-block;
+  color:var(--gold);
+  background:#392f1c;
+  border-radius:5px;
+  font-size:9px;
+  padding:3px 5px;
+  margin-top:5px;
+  font-weight:bold;
+}
+.team.away .side-label { color:#9dc8ff; background:#1b3048; }
+.empty {
+  background:var(--panel);
+  border:1px dashed var(--line);
+  border-radius:12px;
+  color:var(--muted);
+  padding:22px;
+  text-align:center;
+  line-height:1.5;
+}
+.table-wrap {
+  overflow-x:auto;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+}
 table {
   width:100%;
   border-collapse:collapse;
+  min-width:510px;
   font-size:12px;
-  white-space:nowrap;
 }
-th {
-  color:var(--muted);
-  font-weight:normal;
-  padding:10px 7px;
+th,td {
   text-align:center;
+  padding:12px 9px;
+  border-bottom:1px solid var(--line);
 }
-td {
-  padding:11px 7px;
-  border-top:1px solid #303b49;
-  text-align:center;
-}
+th { color:var(--muted); font-size:10px; }
 td.club { text-align:left; font-weight:bold; }
-.club img {
-  width:20px;
-  height:20px;
+td.club img {
+  width:21px;
+  height:21px;
   object-fit:contain;
   vertical-align:middle;
   margin-right:7px;
 }
-.position { color:var(--muted); width:22px; }
-.points { color:var(--gold); font-weight:bold; }
-.wolves-banner {
-  background:linear-gradient(120deg,#9e6b00,#29251b);
-  border-radius:13px;
-  padding:22px;
-  text-align:center;
+tr:last-child td { border-bottom:0; }
+tr.highlight { background:#29301f; }
+.date-bar {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
 }
-.wolves-banner h2 { font-size:25px; }
-.wolves-banner p { color:#f4e2b7; font-size:13px; }
-.big-wolf { font-size:45px; }
+.date-bar input { min-width:145px; }
+.ai-box {
+  background:linear-gradient(135deg,#1d2b3d,#17212e);
+  border:1px solid #40516a;
+  border-radius:16px;
+  padding:20px;
+  margin-top:15px;
+}
+.ai-teams {
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:12px;
+  margin:20px 0;
+}
+.ai-team { text-align:center; min-width:0; }
+.ai-team img {
+  width:48px;
+  height:48px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto 8px;
+}
+.ai-team strong { display:block; font-size:14px; }
+.ai-team small { color:var(--gold); font-weight:bold; font-size:10px; }
+.vs { color:var(--muted); font-weight:bold; }
 .prediction {
+  text-align:center;
+  background:#101925;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:15px;
+}
+.prediction .winner {
+  color:var(--gold2);
+  font-size:21px;
+  font-weight:900;
+  margin:6px 0;
+}
+.prediction .score {
+  font-size:30px;
+  font-weight:900;
+  margin:8px 0;
+}
+.probabilities {
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
-  margin:15px 0;
+  margin-top:12px;
 }
-.prediction div {
+.prob {
   background:var(--panel2);
-  padding:13px 5px;
-  text-align:center;
   border-radius:9px;
-}
-.prediction strong {
-  display:block;
-  font-size:21px;
-  color:var(--gold);
-}
-.prediction small { color:var(--muted); }
-.bar {
-  height:10px;
-  display:flex;
-  overflow:hidden;
-  border-radius:10px;
-  background:#303b49;
-  margin:12px 0;
-}
-.bar span:nth-child(1) { background:var(--green); }
-.bar span:nth-child(2) { background:#929eae; }
-.bar span:nth-child(3) { background:var(--red); }
-footer {
+  padding:12px 5px;
   text-align:center;
-  color:#778493;
-  font-size:11px;
-  padding:20px 10px;
 }
-.hidden { display:none; }
-@media(max-width:500px) {
-  main { padding:13px 10px 35px; }
-  .panel { padding:13px; }
-  .team { font-size:11px; }
-  .team img { width:23px; height:23px; }
-  .score { font-size:16px; min-width:53px; }
+.prob strong { display:block; font-size:21px; color:var(--gold); }
+.prob small { color:var(--muted); font-size:10px; }
+.confidence {
+  display:inline-block;
+  margin-top:12px;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#25394a;
+  color:#b9d8f4;
+  font-size:11px;
+  font-weight:bold;
+}
+.note {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+  margin-top:13px;
+}
+footer {
+  border-top:1px solid var(--line);
+  text-align:center;
+  color:var(--muted);
+  padding:22px 10px;
+  font-size:12px;
+}
+footer strong { color:var(--gold); }
+.loading { color:var(--muted); padding:18px 4px; }
+@media(max-width:600px) {
+  .logo { font-size:22px; }
+  .live-label { font-size:9px; }
+  nav button { padding:12px 11px; font-size:12px; }
+  main { margin-top:17px; }
+  .hero { padding:18px; }
+  .hero h1 { font-size:23px; }
+  .ai-box { padding:14px; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-inner">
-    <div class="logo">KICKOFF <span>CLUB</span> ⚽</div>
-    <div class="live-label">● FOOTBALL CENTRE</div>
+  <div class="top">
+    <div>
+      <div class="logo">KICKOFF <span>CLUB</span> ⚽</div>
+      <div class="tagline">YOUR FOOTBALL CENTRE</div>
+    </div>
+    <div class="live-label">● FOOTBALL HUB</div>
   </div>
+  <nav>
+    <button class="active" data-page="matches">Matches</button>
+    <button data-page="wolves">Wolves 🐺</button>
+    <button data-page="premier">Premier League</button>
+    <button data-page="championship">Championship</button>
+    <button data-page="ai">Kickoff AI</button>
+  </nav>
 </header>
 
 <main>
-  <nav>
-    <button class="active" data-tab="matches">Matches</button>
-    <button data-tab="wolves">Wolves 🐺</button>
-    <button data-tab="premier">Premier League</button>
-    <button data-tab="championship">Championship</button>
-    <button data-tab="ai">Kickoff AI</button>
-  </nav>
-
-  <section id="matches">
-    <h1>Match Centre</h1>
-    <p class="subtitle">Your home for football scores, fixtures and results.</p>
-
-    <div class="panel">
-      <div class="section-title">
-        <h2>Fixtures & Results</h2>
-        <button class="action" onclick="loadAll()">↻ Refresh</button>
-      </div>
-      <div class="date-row">
-        <button class="secondary" onclick="changeDate(-1)">←</button>
-        <input type="date" id="matchDate">
-        <button class="secondary" onclick="changeDate(1)">→</button>
-        <button class="secondary" onclick="today()">Today</button>
-      </div>
+  <!-- MATCHES -->
+  <section id="matches" class="page active">
+    <div class="hero">
+      <h1>Match Centre ⚽</h1>
+      <p>Fixtures, results and scores from the Premier League and Championship.</p>
     </div>
-
-    <div id="allMatches">
-      <div class="empty">Loading football matches...</div>
+    <div class="controls date-bar">
+      <button class="btn" id="prevDay">‹</button>
+      <input type="date" id="matchDate">
+      <button class="btn" id="nextDay">›</button>
+      <button class="btn" id="todayBtn">Today</button>
+      <button class="btn primary" id="refreshBtn">↻ Refresh</button>
+    </div>
+    <div class="section-title">
+      <h2 id="dateHeading">Matches</h2>
+      <span class="subtle">Premier League + Championship</span>
+    </div>
+    <div id="allMatches" class="grid">
+      <div class="loading">Loading football matches...</div>
     </div>
   </section>
 
-  <section id="wolves" class="hidden">
-    <div class="wolves-banner">
-      <div class="big-wolf">🐺</div>
-      <h2>Wolverhampton Wanderers</h2>
-      <p>Old Gold. Black. Forever Wolves.</p>
+  <!-- WOLVES -->
+  <section id="wolves" class="page">
+    <div class="hero">
+      <h1>Wolverhampton Wanderers 🐺</h1>
+      <p>Every Wolves fixture for the season, plus results as they happen. Come on you Wolves!</p>
     </div>
-    <div class="panel">
-      <div class="section-title">
-        <h2>Wolves Match Centre</h2>
-        <button class="action" onclick="loadAll()">↻</button>
-      </div>
-      <div id="wolvesMatches">
-        <div class="empty">Loading Wolves fixtures...</div>
-      </div>
+    <div class="section-title">
+      <h2>Upcoming fixtures</h2>
+      <span class="subtle" id="wolvesUpcomingCount"></span>
     </div>
+    <div id="wolvesUpcoming" class="grid">
+      <div class="loading">Loading Wolves fixtures...</div>
+    </div>
+    <div class="section-title">
+      <h2>Recent results</h2>
+      <span class="subtle" id="wolvesResultsCount"></span>
+    </div>
+    <div id="wolvesResults" class="grid">
+      <div class="loading">Loading Wolves results...</div>
+    </div>
+    <p class="note">Fixtures and results are supplied by ESPN's football data service. The feed may occasionally be delayed or changed.</p>
   </section>
 
-  <section id="premier" class="hidden">
-    <h1>Premier League</h1>
-    <p class="subtitle">England's top division.</p>
-    <div class="panel">
-      <h2>League Table</h2>
-      <div id="premierTable" class="empty">Loading table...</div>
+  <!-- PREMIER LEAGUE -->
+  <section id="premier" class="page">
+    <div class="hero">
+      <h1>Premier League 🏆</h1>
+      <p>The latest Premier League table, fixtures and results.</p>
     </div>
-    <div class="panel">
-      <h2>Matches on selected date</h2>
-      <div id="premierMatches"></div>
+    <div class="section-title"><h2>League table</h2><span class="subtle">2026/27 season</span></div>
+    <div id="premierTable" class="table-wrap"><div class="loading">Loading table...</div></div>
+    <div class="section-title"><h2>Matches on selected date</h2></div>
+    <div class="controls">
+      <input type="date" id="premierDate">
+      <button class="btn primary" id="premierRefresh">Refresh</button>
     </div>
+    <div id="premierMatches" class="grid"><div class="loading">Loading matches...</div></div>
   </section>
 
-  <section id="championship" class="hidden">
-    <h1>Championship</h1>
-    <p class="subtitle">The battle for promotion.</p>
-    <div class="panel">
-      <h2>League Table</h2>
-      <div id="championshipTable" class="empty">Loading table...</div>
+  <!-- CHAMPIONSHIP -->
+  <section id="championship" class="page">
+    <div class="hero">
+      <h1>Championship 🏆</h1>
+      <p>The Championship table, fixtures and results.</p>
     </div>
-    <div class="panel">
-      <h2>Matches on selected date</h2>
-      <div id="championshipMatches"></div>
+    <div class="section-title"><h2>League table</h2><span class="subtle">2026/27 season</span></div>
+    <div id="championshipTable" class="table-wrap"><div class="loading">Loading table...</div></div>
+    <div class="section-title"><h2>Matches on selected date</h2></div>
+    <div class="controls">
+      <input type="date" id="championshipDate">
+      <button class="btn primary" id="championshipRefresh">Refresh</button>
     </div>
+    <div id="championshipMatches" class="grid"><div class="loading">Loading matches...</div></div>
   </section>
 
-  <section id="ai" class="hidden">
-    <h1>Kickoff AI 🤖</h1>
-    <p class="subtitle">Our match prediction feature.</p>
-    <div class="panel">
-      <h2>Choose a match</h2>
-      <p class="subtitle">Predictions use recent team form when ESPN provides it.</p>
-      <select id="predictionMatch" class="secondary" style="width:100%;margin:10px 0">
+  <!-- AI -->
+  <section id="ai" class="page">
+    <div class="hero">
+      <h1>Kickoff AI 🤖</h1>
+      <p>Choose a match to get a football prediction, including a predicted winner, score and percentages.</p>
+    </div>
+    <div class="controls">
+      <select id="aiLeague">
+        <option value="all">All matches</option>
+        <option value="eng.1">Premier League</option>
+        <option value="eng.2">Championship</option>
+      </select>
+      <select id="aiMatch" style="flex:1;min-width:200px">
         <option value="">Loading matches...</option>
       </select>
-      <button class="action" onclick="predictMatch()">Predict match ⚽</button>
-      <div id="predictionResult"></div>
+      <button class="btn primary" id="predictBtn">Predict match</button>
     </div>
-    <p class="subtitle">Predictions are estimates, not guaranteed results.</p>
+    <div id="aiResult">
+      <div class="empty">Choose a match above and tap <strong>Predict match</strong>.</div>
+    </div>
+    <p class="note">Kickoff AI is an experimental estimate based on available team form and a home advantage adjustment. It is not a guaranteed result or a professional betting prediction.</p>
   </section>
-
-  <footer>
-    Made by Liam 🐺 · Kickoff Club<br>
-    Match data provided by ESPN. Independent fan project.
-  </footer>
 </main>
+
+<footer>
+  Made by <strong>Liam 🐺</strong> · Kickoff Club
+</footer>
 
 <script>
 const API = "https://site.api.espn.com/apis/site/v2/sports/soccer/";
-const TABLE_API = "https://site.api.espn.com/apis/v2/sports/soccer/";
-const LEAGUES = {
-  premier: { id:"eng.1", name:"Premier League" },
-  championship: { id:"eng.2", name:"Championship" }
-};
+const WOLVES_ID = "380";
+const SEASON = new Date().getFullYear();
 
-let matchData = { premier:[], championship:[] };
-let activeTab = "matches";
+let selectedDate = new Date();
+let premierGames = [];
+let championshipGames = [];
+let allGames = [];
+let wolvesGames = [];
 
-const dateInput = document.getElementById("matchDate");
+function dateKey(date) {
+  const d = new Date(date);
+  return d.getFullYear() + String(d.getMonth()+1).padStart(2,"0") +
+    String(d.getDate()).padStart(2,"0");
+}
+function localDateString(date) {
+  const d = new Date(date);
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+function niceDate(date) {
+  return new Date(date).toLocaleDateString(undefined,{
+    weekday:"short",day:"numeric",month:"short",year:"numeric"
+  });
+}
+function safe(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+function getCompetition(event) {
+  return event.competitions?.[0] || {};
+}
+function getTeams(event) {
+  const comp = getCompetition(event);
+  const competitors = comp.competitors || [];
+  return {
+    home:competitors.find(t=>t.homeAway==="home") || competitors[0],
+    away:competitors.find(t=>t.homeAway==="away") || competitors[1]
+  };
+}
+function getMatchInfo(event) {
+  const comp = getCompetition(event);
+  const teams = getTeams(event);
+  const home = teams.home || {};
+  const away = teams.away || {};
+  const status = comp.status || event.status || {};
+  const state = status.type?.state || "pre";
+  return {
+    id:event.id,
+    date:event.date,
+    home:home.team || {},
+    away:away.team || {},
+    homeScore:home.score ?? "",
+    awayScore:away.score ?? "",
+    state,
+    status:status.type?.shortDetail || status.type?.detail || "",
+    clock:status.displayClock || "",
+    homeForm:home.form || "",
+    awayForm:away.form || "",
+    competition:comp,
+    raw:event
+  };
+}
+async function fetchJSON(url) {
+  const response = await fetch(url);
+  if(!response.ok) throw new Error("Football data request failed");
+  return response.json();
+}
+async function getScoreboard(league,date) {
+  const data = await fetchJSON(API+league+"/scoreboard?dates="+dateKey(date)+"&limit=100");
+  return (data.events || []).map(getMatchInfo);
+}
+function matchCard(match) {
+  const home = match.home || {};
+  const away = match.away || {};
+  const played = match.state==="post";
+  const live = match.state==="in";
+  const homeScore = match.homeScore;
+  const awayScore = match.awayScore;
+  const score = played || live
+    ? `${safe(homeScore)} - ${safe(awayScore)}`
+    : "vs";
+  const status = live ? "● LIVE" : played ? "FULL TIME" :
+    (match.status || new Date(match.date).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}));
+  const statusClass = live ? "status live" : "status";
+  return `
+    <article class="card">
+      <div class="match-top">
+        <span>${niceDate(match.date)}</span>
+        <span class="${statusClass}">${safe(status)}</span>
+      </div>
+      <div class="teams">
+        <div class="team">
+          ${home.logo ? `<img src="${safe(home.logo)}" alt="">` : ""}
+          <div><div class="team-name">${safe(home.displayName || home.name || "Home team")}</div><span class="side-label">HOME</span></div>
+        </div>
+        <div class="team away">
+          <div><div class="team-name">${safe(away.displayName || away.name || "Away team")}</div><span class="side-label">AWAY</span></div>
+          ${away.logo ? `<img src="${safe(away.logo)}" alt="">` : ""}
+        </div>
+      </div>
+      <div class="scoreline">${score}</div>
+      <div class="match-footer">
+        <span>${safe(match.leagueName || "")}</span>
+        <span>${live ? "In progress" : played ? "Result" : "Kick-off"}</span>
+      </div>
+    </article>`;
+}
+function renderCards(elementId,games,message) {
+  const element=document.getElementById(elementId);
+  if(!games.length) {
+    element.innerHTML=`<div class="empty">${message}</div>`;
+    return;
+  }
+  element.innerHTML=games.map(matchCard).join("");
+}
+async function loadMatchCentre() {
+  const date=selectedDate;
+  document.getElementById("dateHeading").textContent=niceDate(date);
+  document.getElementById("allMatches").innerHTML='<div class="loading">Loading matches...</div>';
+  try {
+    const [pl,ch]=await Promise.all([
+      getScoreboard("eng.1",date),
+      getScoreboard("eng.2",date)
+    ]);
+    premierGames=pl.map(g=>({...g,leagueName:"Premier League",league:"eng.1"}));
+    championshipGames=ch.map(g=>({...g,leagueName:"Championship",league:"eng.2"}));
+    allGames=[...premierGames,...championshipGames].sort((a,b)=>new Date(a.date)-new Date(b.date));
+    renderCards("allMatches",allGames,"No matches listed for this date. Try another day.");
+    updateAIMatches();
+  } catch(error) {
+    document.getElementById("allMatches").innerHTML='<div class="empty">Could not load matches right now. Please try refreshing.</div>';
+  }
+}
+async function loadLeagueMatches(league,elementId,dateInputId) {
+  const date=document.getElementById(dateInputId).value || localDateString(new Date());
+  const element=document.getElementById(elementId);
+  element.innerHTML='<div class="loading">Loading matches...</div>';
+  try {
+    const games=await getScoreboard(league,date);
+    const leagueName=league==="eng.1"?"Premier League":"Championship";
+    const decorated=games.map(g=>({...g,leagueName}));
+    renderCards(elementId,decorated,"No matches listed for this date.");
+  } catch(error) {
+    element.innerHTML='<div class="empty">Could not load matches. Please try again.</div>';
+  }
+}
+function collectEvents(data) {
+  const events=[];
+  if(Array.isArray(data.events)) events.push(...data.events);
+  if(Array.isArray(data.items)) events.push(...data.items);
+  return events;
+}
+async function loadWolves() {
+  const upcomingBox=document.getElementById("wolvesUpcoming");
+  const resultsBox=document.getElementById("wolvesResults");
+  upcomingBox.innerHTML='<div class="loading">Loading the full Wolves schedule...</div>';
+  resultsBox.innerHTML='<div class="loading">Loading results...</div>';
+  try {
+    const base=API+"eng.1/teams/"+WOLVES_ID+"/schedule?season="+SEASON;
+    const fixture=API+"eng.1/teams/"+WOLVES_ID+"/schedule?season="+SEASON+"&fixture=true";
+    const responses=await Promise.allSettled([fetchJSON(base),fetchJSON(fixture)]);
+    let events=[];
+    responses.forEach(result=>{
+      if(result.status==="fulfilled") events.push(...collectEvents(result.value));
+    });
+    const unique=new Map();
+    events.forEach(event=>{
+      if(event && event.id) unique.set(event.id,event);
+    });
+    wolvesGames=[...unique.values()].map(event=>({
+      ...getMatchInfo(event),
+      leagueName:"Premier League"
+    })).filter(match=>{
+      const teams=[match.home.id,match.away.id].map(String);
+      return teams.includes(WOLVES_ID);
+    }).sort((a,b)=>new Date(a.date)-new Date(b.date));
 
-function localDateString(date = new Date()) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth()+1).padStart(2,"0");
-  const d = String(date.getDate()).padStart(2,"0");
-  return `${y}-${m}-${d}`;
+    const now=Date.now();
+    const upcoming=wolvesGames.filter(g=>g.state!=="post" && new Date(g.date).getTime()>=now-3*60*60*1000);
+    const results=wolvesGames.filter(g=>g.state==="post").reverse();
+
+    document.getElementById("wolvesUpcomingCount").textContent=upcoming.length+" matches";
+    document.getElementById("wolvesResultsCount").textContent=results.length+" matches";
+    renderCards("wolvesUpcoming",upcoming,"No upcoming Wolves fixtures were returned by the feed.");
+    renderCards("wolvesResults",results,"No completed Wolves results were returned by the feed.");
+  } catch(error) {
+    upcomingBox.innerHTML='<div class="empty">Could not load the Wolves schedule. Please try again later.</div>';
+    resultsBox.innerHTML='<div class="empty">Could not load Wolves results.</div>';
+  }
+}
+function findStat(entry,names) {
+  const stats=entry.stats || [];
+  const found=stats.find(s=>names.includes(s.name) || names.includes(s.type));
+  return found ? (found.displayValue ?? found.value ?? "-") : "-";
+}
+async function loadTable(league,elementId) {
+  const box=document.getElementById(elementId);
+  box.innerHTML='<div class="loading">Loading league table...</div>';
+  try {
+    const data=await fetchJSON("https://site.api.espn.com/apis/v2/sports/soccer/"+league+"/standings?season="+SEASON);
+    let entries=[];
+    function walk(node) {
+      if(!node) return;
+      if(Array.isArray(node.entries)) entries.push(...node.entries);
+      if(Array.isArray(node.children)) node.children.forEach(walk);
+    }
+    walk(data);
+    const seen=new Set();
+    entries=entries.filter(entry=>{
+      const id=entry.team?.id;
+      if(!id || seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    });
+    if(!entries.length) throw new Error("No table data");
+    entries.sort((a,b)=>{
+      const ap=Number(findStat(a,["points"]));
+      const bp=Number(findStat(b,["points"]));
+      return bp-ap;
+    });
+    box.innerHTML=`
+      <table>
+        <thead><tr><th>#</th><th style="text-align:left">CLUB</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>PTS</th></tr></thead>
+        <tbody>
+        ${entries.map((entry,index)=>{
+          const team=entry.team||{};
+          const id=String(team.id||"");
+          const logo=team.logos?.[0]?.href || team.logo || "";
+          const isWolves=id===WOLVES_ID;
+          return `<tr class="${isWolves?"highlight":""}">
+            <td>${index+1}</td>
+            <td class="club">${logo?`<img src="${safe(logo)}" alt="">`:""}${safe(team.displayName||team.name||"Club")}</td>
+            <td>${safe(findStat(entry,["gamesPlayed","games"]))}</td>
+            <td>${safe(findStat(entry,["wins"]))}</td>
+            <td>${safe(findStat(entry,["ties","draws"]))}</td>
+            <td>${safe(findStat(entry,["losses"]))}</td>
+            <td>${safe(findStat(entry,["pointDifferential","goalDifference"]))}</td>
+            <td><strong>${safe(findStat(entry,["points"]))}</strong></td>
+          </tr>`;
+        }).join("")}
+        </tbody>
+      </table>`;
+  } catch(error) {
+    box.innerHTML='<div class="empty">Could not load the league table right now.</div>';
+  }
+}
+function formPoints(form) {
+  if(!form) return 0;
+  const chars=String(form).toUpperCase().replace(/[^WDL]/g,"").slice(-5);
+  let points=0;
+  for(const c of chars) {
+    if(c==="W") points+=3;
+    if(c==="D") points+=1;
+  }
+  return chars.length ? points/chars.length : 1.2;
+}
+function clamp(value,min,max) {
+  return Math.max(min,Math.min(max,value));
+}
+function predict(match) {
+  const homeForm=formPoints(match.homeForm);
+  const awayForm=formPoints(match.awayForm);
+  // A small home advantage is included in this simple estimate.
+  const strength=(homeForm-awayForm)*0.22+0.22;
+  let home=clamp(0.43+strength*0.38,0.18,0.70);
+  let away=clamp(0.29-strength*0.38,0.14,0.62);
+  let draw=clamp(1-home-away,0.16,0.34);
+  const total=home+draw+away;
+  home/=total; draw/=total; away/=total;
+  const values=[home,draw,away];
+  const highest=Math.max(...values);
+  let winner="Draw";
+  if(highest===home) winner=match.home.displayName||match.home.name;
+  if(highest===away) winner=match.away.displayName||match.away.name;
+
+  let homeGoals=1,awayGoals=1;
+  if(winner!=="Draw") {
+    if(winner===(match.home.displayName||match.home.name)) {
+      homeGoals=home>0.57?2:1;
+      awayGoals=home>0.57?0:1;
+      if(homeForm>=awayForm+0.8) homeGoals=2;
+    } else {
+      awayGoals=away>0.57?2:1;
+      homeGoals=away>0.57?0:1;
+      if(awayForm>=homeForm+0.8) awayGoals=2;
+    }
+  }
+  const gap=highest-Math.max(...values.filter(v=>v!==highest));
+  const confidence=gap>0.20?"HIGH":gap>0.10?"MEDIUM":"LOW";
+  return {
+    home:Math.round(home*100),
+    draw:Math.round(draw*100),
+    away:Math.round(away*100),
+    winner,
+    homeGoals,
+    awayGoals,
+    confidence
+  };
+}
+function updateAIMatches() {
+  const league=document.getElementById("aiLeague").value;
+  const select=document.getElementById("aiMatch");
+  const games=league==="all"?allGames:allGames.filter(g=>g.league===league);
+  if(!games.length) {
+    select.innerHTML='<option value="">No matches available for this date</option>';
+    return;
+  }
+  select.innerHTML=games.map((g,index)=>{
+    const home=g.home.displayName||g.home.name;
+    const away=g.away.displayName||g.away.name;
+    return `<option value="${index}">${safe(home)} vs ${safe(away)} — ${niceDate(g.date)}</option>`;
+  }).join("");
+  select.dataset.gameIds=games.map(g=>g.id).join(",");
+}
+function runPrediction() {
+  const league=document.getElementById("aiLeague").value;
+  const games=league==="all"?allGames:allGames.filter(g=>g.league===league);
+  const index=Number(document.getElementById("aiMatch").value);
+  const match=games[index];
+  const box=document.getElementById("aiResult");
+  if(!match) {
+    box.innerHTML='<div class="empty">There are no matches to predict for the selected date. Go to Matches and choose a date with fixtures.</div>';
+    return;
+  }
+  const p=predict(match);
+  const home=match.home||{};
+  const away=match.away||{};
+  const homeName=home.displayName||home.name||"Home team";
+  const awayName=away.displayName||away.name||"Away team";
+  const winnerText=p.winner==="Draw"?"A draw is the most likely outcome":p.winner+" to win";
+  box.innerHTML=`
+    <div class="ai-box">
+      <div class="match-top">
+        <span>KICKOFF AI ESTIMATE</span>
+        <span>${niceDate(match.date)}</span>
+      </div>
+      <div class="ai-teams">
+        <div class="ai-team">
+          ${home.logo?`<img src="${safe(home.logo)}" alt="">`:""}
+          <strong>${safe(homeName)}</strong>
+          <small>HOME</small>
+        </div>
+        <div class="vs">VS</div>
+        <div class="ai-team">
+          ${away.logo?`<img src="${safe(away.logo)}" alt="">`:""}
+          <strong>${safe(awayName)}</strong>
+          <small>AWAY</small>
+        </div>
+      </div>
+      <div class="prediction">
+        <div class="subtle">PREDICTION</div>
+        <div class="winner">${safe(winnerText)}</div>
+        <div class="subtle">Predicted score</div>
+        <div class="score">${p.homeGoals} - ${p.awayGoals}</div>
+        <div class="subtle">${safe(homeName)} ${p.homeGoals} · ${safe(awayName)} ${p.awayGoals}</div>
+        <span class="confidence">CONFIDENCE: ${p.confidence}</span>
+      </div>
+      <div class="section-title"><h2>Win probabilities</h2></div>
+      <div class="probabilities">
+        <div class="prob"><strong>${p.home}%</strong><small>HOME WIN</small></div>
+        <div class="prob"><strong>${p.draw}%</strong><small>DRAW</small></div>
+        <div class="prob"><strong>${p.away}%</strong><small>AWAY WIN</small></div>
+      </div>
+      <p class="note">This is a simple form-based estimate, not a guarantee. Football can always surprise us!</p>
+    </div>`;
 }
 
-dateInput.value = localDateString();
-
-function espnDate(date) {
-  return date.replaceAll("-","");
-}
-
-function changeDate(amount) {
-  const d = new Date(dateInput.value + "T12:00:00");
-  d.setDate(d.getDate()+amount);
-  dateInput.value = localDateString(d);
-  loadAll();
-}
-
-function today() {
-  dateInput.value = localDateString();
-  loadAll();
-}
-
-dateInput.addEventListener("change", loadAll);
-
-document.querySelectorAll("nav button").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+document.querySelectorAll("nav button").forEach(button=>{
+  button.addEventListener("click",()=>{
+    document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
     button.classList.add("active");
-    activeTab = button.dataset.tab;
-
-    document.querySelectorAll("main section").forEach(s => s.classList.add("hidden"));
-    document.getElementById(activeTab).classList.remove("hidden");
+    document.getElementById(button.dataset.page).classList.add("active");
+    if(button.dataset.page==="wolves" && !wolvesGames.length) loadWolves();
+    if(button.dataset.page==="premier") {
+      loadTable("eng.1","premierTable");
+      loadLeagueMatches("eng.1","premierMatches","premierDate");
+    }
+    if(button.dataset.page==="championship") {
+      loadTable("eng.2","championshipTable");
+      loadLeagueMatches("eng.2","championshipMatches","championshipDate");
+    }
   });
 });
 
-async function getJSON(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error("Football data could not be loaded.");
-  return response.json();
-}
+document.getElementById("prevDay").addEventListener("click",()=>{
+  selectedDate.setDate(selectedDate.getDate()-1);
+  document.getElementById("matchDate").value=localDateString(selectedDate);
+  loadMatchCentre();
+});
+document.getElementById("nextDay").addEventListener("click",()=>{
+  selectedDate.setDate(selectedDate.getDate()+1);
+  document.getElementById("matchDate").value=localDateString(selectedDate);
+  loadMatchCentre();
+});
+document.getElementById("todayBtn").addEventListener("click",()=>{
+  selectedDate=new Date();
+  document.getElementById("matchDate").value=localDateString(selectedDate);
+  loadMatchCentre();
+});
+document.getElementById("matchDate").addEventListener("change",event=>{
+  selectedDate=new Date(event.target.value+"T12:00:00");
+  loadMatchCentre();
+});
+document.getElementById("refreshBtn").addEventListener("click",()=>{
+  loadMatchCentre();
+  loadWolves();
+});
+document.getElementById("premierRefresh").addEventListener("click",()=>{
+  loadLeagueMatches("eng.1","premierMatches","premierDate");
+});
+document.getElementById("championshipRefresh").addEventListener("click",()=>{
+  loadLeagueMatches("eng.2","championshipMatches","championshipDate");
+});
+document.getElementById("aiLeague").addEventListener("change",updateAIMatches);
+document.getElementById("predictBtn").addEventListener("click",runPrediction);
 
-async function loadLeague(key) {
-  const league = LEAGUES[key];
-  const date = espnDate(dateInput.value);
-  const url = `${API}${league.id}/scoreboard?dates=${date}&limit=100`;
-  const data = await getJSON(url);
-  return data.events || [];
-}
+const today=localDateString(new Date());
+document.getElementById("matchDate").value=today;
+document.getElementById("premierDate").value=today;
+document.getElementById("championshipDate").value=today;
 
-async function loadAll() {
-  document.getElementById("allMatches").innerHTML =
-    '<div class="empty">Loading matches...</div>';
-  document.getElementById("wolvesMatches").innerHTML =
-    '<div class="empty">Loading Wolves fixtures...</div>';
+loadMatchCentre();
+loadWolves();
+loadTable("eng.1","premierTable");
+loadTable("eng.2","championshipTable");
 
-  try {
-    const results = await Promise.allSettled([
-      loadLeague("premier"),
-      loadLeague("championship")
-    ]);
-
-    matchData.premier = results[0].status === "fulfilled" ? results[0].value : [];
-    matchData.championship = results[1].status === "fulfilled" ? results[1].value : [];
-
-    renderEverything();
-
-    if (results.every(r => r.status === "rejected")) {
-      document.getElementById("allMatches").innerHTML =
-        '<div class="error">Could not load football data. Check your internet connection and try Refresh.</div>';
-    }
-  } catch (error) {
-    document.getElementById("allMatches").innerHTML =
-      '<div class="error">Something went wrong loading matches.</div>';
-  }
-
-  loadTables();
-}
-
-function getCompetitors(event) {
-  return event.competitions?.[0]?.competitors || [];
-}
-
-function getTeam(event, side) {
-  return getCompetitors(event).find(c => c.homeAway === side);
-}
-
-function teamHTML(team) {
-  if (!team) return "Unknown";
-  const logo = team.team?.logo || "";
-  const name = team.team?.shortDisplayName || team.team?.displayName || "Team";
-  return `${logo ? `<img src="${logo}" alt="">` : ""}<span>${name}</span>`;
-}
-
-function matchHTML(event) {
-  const home = getTeam(event,"home");
-  const away = getTeam(event,"away");
-  if (!home || !away) return "";
-
-  const status = event.status?.type;
-  const completed = status?.completed;
-  const live = status?.state === "in";
-  const isScheduled = status?.state === "pre";
-
-  let score = "vs";
-  if (!isScheduled) {
-    score = `${home.score ?? "0"} - ${away.score ?? "0"}`;
-  }
-
-  let statusText = status?.shortDetail || status?.detail || "";
-  if (isScheduled) {
-    statusText = new Date(event.date).toLocaleTimeString([], {
-      hour:"numeric", minute:"2-digit"
-    });
-  }
-  if (completed) statusText = "FT";
-  if (live) statusText = "● LIVE";
-
-  return `
-    <div class="match">
-      <div class="team">${teamHTML(home)}</div>
-      <div class="score">
-        ${score}
-        <span class="status ${live ? "live" : ""}">${statusText}</span>
-      </div>
-      <div class="team away">${teamHTML(away)}</div>
-    </div>`;
-}
-
-function renderGroup(events, name) {
-  if (!events.length) return "";
-  return `
-    <div class="competition">${name}</div>
-    <div class="panel">${events.map(matchHTML).join("")}</div>`;
-}
-
-function renderEverything() {
-  const premier = matchData.premier;
-  const championship = matchData.championship;
-
-  const all = [
-    ...premier.map(e => ({event:e, league:"Premier League"})),
-    ...championship.map(e => ({event:e, league:"Championship"}))
-  ];
-
-  document.getElementById("allMatches").innerHTML = all.length
-    ? renderGroup(premier,"PREMIER LEAGUE") +
-      renderGroup(championship,"CHAMPIONSHIP")
-    : '<div class="panel empty">No matches found on this date. Try another day!</div>';
-
-  const wolves = premier.filter(e =>
-    getCompetitors(e).some(c =>
-      c.team?.displayName?.toLowerCase().includes("wolves") ||
-      c.team?.shortDisplayName?.toLowerCase() === "wolves" ||
-      c.team?.id === "380"
-    )
-  );
-
-  document.getElementById("wolvesMatches").innerHTML = wolves.length
-    ? wolves.map(matchHTML).join("")
-    : '<div class="empty">No Wolves matches found on this date.</div>';
-
-  document.getElementById("premierMatches").innerHTML =
-    premier.length ? premier.map(matchHTML).join("") :
-    '<div class="empty">No Premier League matches on this date.</div>';
-
-  document.getElementById("championshipMatches").innerHTML =
-    championship.length ? championship.map(matchHTML).join("") :
-    '<div class="empty">No Championship matches on this date.</div>';
-
-  const select = document.getElementById("predictionMatch");
-  select.innerHTML = '<option value="">Choose a match...</option>';
-
-  all.forEach(({event,league}, index) => {
-    const home = getTeam(event,"home")?.team?.displayName;
-    const away = getTeam(event,"away")?.team?.displayName;
-    const option = document.createElement("option");
-    option.value = String(index);
-    option.textContent = `${home} vs ${away} (${league})`;
-    select.appendChild(option);
-  });
-
-  window.predictionEvents = all.map(x => x.event);
-}
-
-function findEntries(data) {
-  let found = [];
-
-  function walk(obj) {
-    if (!obj || typeof obj !== "object") return;
-
-    if (Array.isArray(obj.entries)) {
-      found.push(...obj.entries);
-    }
-
-    if (Array.isArray(obj.children)) {
-      obj.children.forEach(walk);
-    }
-
-    if (obj.standings && typeof obj.standings === "object") {
-      walk(obj.standings);
-    }
-  }
-
-  walk(data);
-  return found;
-}
-
-function statValue(entry, names) {
-  const stats = entry.stats || [];
-  const item = stats.find(s =>
-    names.includes(s.name) || names.includes(s.type)
-  );
-  return item?.displayValue ?? item?.value ?? "-";
-}
-
-function renderTable(data, elementId) {
-  const entries = findEntries(data);
-
-  if (!entries.length) {
-    document.getElementById(elementId).innerHTML =
-      '<div class="empty">The table data is not available right now.</div>';
-    return;
-  }
-
-  entries.sort((a,b) =>
-    Number(statValue(a,["rank","playoffSeed"])) -
-    Number(statValue(b,["rank","playoffSeed"]))
-  );
-
-  let html = `
-    <div class="table-wrap">
-    <table>
-      <thead><tr>
-        <th>#</th><th style="text-align:left">Club</th>
-        <th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th>
-      </tr></thead><tbody>`;
-
-  entries.forEach((entry,index) => {
-    const team = entry.team || {};
-    const logo = team.logos?.[0]?.href || team.logo || "";
-    html += `
-      <tr>
-        <td class="position">${statValue(entry,["rank"]) === "-" ? index+1 : statValue(entry,["rank"])}</td>
-        <td class="club">${logo ? `<img src="${logo}" alt="">` : ""}${team.displayName || team.name || "Club"}</td>
-        <td>${statValue(entry,["gamesPlayed","played"])}</td>
-        <td>${statValue(entry,["wins"])}</td>
-        <td>${statValue(entry,["ties","draws"])}</td>
-        <td>${statValue(entry,["losses"])}</td>
-        <td>${statValue(entry,["pointDifferential","goalDifference"])}</td>
-        <td class="points">${statValue(entry,["points"])}</td>
-      </tr>`;
-  });
-
-  html += "</tbody></table></div>";
-  document.getElementById(elementId).innerHTML = html;
-}
-
-async function loadTables() {
-  const jobs = [
-    ["premier","premierTable"],
-    ["championship","championshipTable"]
-  ];
-
-  await Promise.all(jobs.map(async ([key,id]) => {
-    const season = new Date().getFullYear();
-    try {
-      const data = await getJSON(
-        `${TABLE_API}${LEAGUES[key].id}/standings?season=${season}`
-      );
-      renderTable(data,id);
-    } catch (error) {
-      document.getElementById(id).innerHTML =
-        '<div class="error">Could not load this table. Try refreshing.</div>';
-    }
-  }));
-}
-
-function formScore(team) {
-  const form = team?.form || "";
-  if (!form) return 0;
-
-  let score = 0;
-  for (const result of form.toUpperCase()) {
-    if (result === "W") score += 3;
-    if (result === "D") score += 1;
-  }
-  return score;
-}
-
-function predictMatch() {
-  const index = document.getElementById("predictionMatch").value;
-  const output = document.getElementById("predictionResult");
-
-  if (index === "") {
-    output.innerHTML = '<div class="empty">Choose a match first!</div>';
-    return;
-  }
-
-  const event = window.predictionEvents?.[Number(index)];
-  const home = getTeam(event,"home");
-  const away = getTeam(event,"away");
-
-  if (!home || !away) return;
-
-  const homeForm = formScore(home);
-  const awayForm = formScore(away);
-
-  // A simple estimate based on recent form and home advantage.
-  const difference = homeForm - awayForm + 2;
-  const homeChance = Math.max(15,Math.min(70,Math.round(40 + difference*2)));
-  const awayChance = Math.max(15,Math.min(65,Math.round(30 - difference*2)));
-  const drawChance = 100 - homeChance - awayChance;
-
-  const homeName = home.team.displayName;
-  const awayName = away.team.displayName;
-
-  let predictedScore;
-  if (homeChance > awayChance + 10) predictedScore = "2 - 1";
-  else if (awayChance > homeChance + 10) predictedScore = "1 - 2";
-  else predictedScore = "1 - 1";
-
-  const confidence = Math.abs(homeChance-awayChance) > 20
-    ? "Medium" : "Low";
-
-  output.innerHTML = `
-    <div class="panel" style="margin-top:17px">
-      <h2>${homeName} vs ${awayName}</h2>
-      <p class="subtitle">Kickoff AI prediction</p>
-      <div class="prediction">
-        <div><strong>${homeChance}%</strong><small>Home win</small></div>
-        <div><strong>${drawChance}%</strong><small>Draw</small></div>
-        <div><strong>${awayChance}%</strong><small>Away win</small></div>
-      </div>
-      <div class="bar">
-        <span style="width:${homeChance}%"></span>
-        <span style="width:${drawChance}%"></span>
-        <span style="width:${awayChance}%"></span>
-      </div>
-      <h2 style="text-align:center;margin-top:20px">Predicted score: ${predictedScore}</h2>
-      <p class="subtitle" style="text-align:center">Confidence: ${confidence}</p>
-      <p class="subtitle">This is a basic form-based estimate, not a guaranteed prediction.</p>
-    </div>`;
-}
-
-loadAll();
-
-// Refresh scores periodically while the page is open.
-setInterval(() => {
-  loadLeague("premier").then(events => {
-    matchData.premier = events;
-    renderEverything();
-  }).catch(() => {});
-
-  loadLeague("championship").then(events => {
-    matchData.championship = events;
-    renderEverything();
-  }).catch(() => {});
-}, 120000);
+// Refresh scores and fixtures every two minutes.
+setInterval(()=>{
+  loadMatchCentre();
+  loadWolves();
+},120000);
 </script>
 </body>
 </html>
