@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101116">
+<title>Kickoff Club</title>
+
+<style>
+:root {
+  --bg:#101116;
+  --panel:#1b1a22;
+  --gold:#f6c744;
+  --text:#f7f5f0;
+  --muted:#aaa7b1;
+}
+* { box-sizing:border-box }
+body {
+  margin:0;
+  background:radial-gradient(circle at top,#302b20 0,#101116 45%);
+  color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+header {
+  padding:22px 5vw;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #ffffff18;
+  gap:12px;
+}
+.brand {font-weight:900;font-size:1.4rem}
+.brand span {color:var(--gold)}
+.tag {color:var(--muted);font-size:.85rem}
+main {max-width:1000px;margin:auto;padding:28px 18px 60px}
+.hero {
+  padding:30px 25px;
+  border:1px solid #ffffff18;
+  background:linear-gradient(120deg,#27231a,#1b1a22);
+  border-radius:24px;
+}
+.hero h1 {font-size:clamp(2rem,6vw,3.5rem);margin:8px 0}
+.hero p {color:var(--muted);max-width:650px}
+.badge {
+  color:var(--gold);
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-size:.8rem;
+}
+.grid {
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:18px;
+  margin-top:20px;
+}
+.card {
+  background:var(--panel);
+  border:1px solid #ffffff14;
+  border-radius:20px;
+  padding:20px;
+}
+.card h2 {margin-top:0}
+.select {
+  width:100%;
+  background:#111;
+  color:white;
+  border:1px solid #ffffff30;
+  border-radius:12px;
+  padding:13px;
+  font-size:1rem;
+}
+.fixture {
+  margin-top:14px;
+  padding:16px;
+  border-radius:15px;
+  background:#111116;
+  border:1px solid #ffffff12;
+}
+.teams {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  font-size:1.05rem;
+  font-weight:800;
+}
+.versus {color:var(--gold)}
+.muted {color:var(--muted);font-size:.9rem}
+.button {
+  background:var(--gold);
+  color:#16130a;
+  border:0;
+  padding:12px 15px;
+  border-radius:12px;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:12px;
+}
+.button.secondary {
+  background:#302e37;
+  color:white;
+  border:1px solid #ffffff22;
+}
+.row {display:flex;gap:9px;flex-wrap:wrap}
+.list {padding-left:20px;color:var(--muted);line-height:1.7}
+.footer {
+  text-align:center;
+  color:var(--muted);
+  padding:30px 0 10px;
+  font-size:.85rem;
+}
+small {color:var(--muted)}
+@media(max-width:700px) {
+  .grid {grid-template-columns:1fr}
+  header {padding:17px 18px}
+  .tag {display:none}
+  .hero {padding:22px 18px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">⚽ Kickoff <span>Club</span></div>
+  <div class="tag">Pick your club. Never miss kickoff.</div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="badge">Your matchday hub</div>
+  <h1>Never miss <span style="color:var(--gold)">kickoff.</span></h1>
+  <p>Follow your team, keep track of upcoming matchdays, and set a reminder so you're ready when the whistle blows.</p>
+
+  <div class="row">
+    <button class="button" onclick="document.querySelector('#team').focus()">Choose your club ↓</button>
+    <button class="button secondary" onclick="addDemoCalendar()">Add demo reminder to calendar</button>
+  </div>
+</section>
+
+<div class="grid">
+
+<section class="card">
+  <h2>❤️ Your club</h2>
+
+  <label for="team" class="muted">Choose a Premier League team</label>
+
+  <select id="team" class="select" onchange="updateTeam()">
+    <option>Wolverhampton Wanderers</option>
+    <option>Arsenal</option>
+    <option>Aston Villa</option>
+    <option>Bournemouth</option>
+    <option>Brentford</option>
+    <option>Brighton & Hove Albion</option>
+    <option>Burnley</option>
+    <option>Chelsea</option>
+    <option>Crystal Palace</option>
+    <option>Everton</option>
+    <option>Fulham</option>
+    <option>Leeds United</option>
+    <option>Liverpool</option>
+    <option>Manchester City</option>
+    <option>Manchester United</option>
+    <option>Newcastle United</option>
+    <option>Nottingham Forest</option>
+    <option>Sunderland</option>
+    <option>Tottenham Hotspur</option>
+    <option>West Ham United</option>
+    <option>Other / custom</option>
+  </select>
+
+  <div class="fixture">
+    <div class="muted">Next fixture · demo card</div>
+    <div class="teams">
+      <span id="club">🐺 Wolves</span>
+      <span class="versus">VS</span>
+      <span>Opponent</span>
+    </div>
+    <p class="muted">Fixture details will appear here when live fixtures are connected.</p>
+  </div>
+
+  <p class="muted">This first version is a demo. Live fixtures and automatic reminders are future upgrades.</p>
+</section>
+
+<section class="card">
+  <h2>🔔 Match reminders</h2>
+
+  <p class="muted">Choose how early you want a calendar reminder. Calendar alerts can also appear on your Apple Watch if notifications are mirrored.</p>
+
+  <select id="minutes" class="select">
+    <option value="60">1 hour before</option>
+    <option value="30">30 minutes before</option>
+    <option value="15">15 minutes before</option>
+    <option value="5">5 minutes before</option>
+  </select>
+
+  <button class="button" onclick="addDemoCalendar()">Add demo reminder</button>
+
+  <p class="muted">A sample event is added to your calendar. Replace it with a real fixture once match times are confirmed.</p>
+</section>
+
+</div>
+
+<section class="card" style="margin-top:18px">
+  <h2>🚧 Coming soon</h2>
+  <ul class="list">
+    <li>Live Premier League fixtures</li>
+    <li>Scores and league table</li>
+    <li>Automatic next-match updates</li>
+    <li>More reminder options</li>
+  </ul>
+</section>
+
+<div class="footer">
+  Made by Liam · Kickoff Club<br>
+  <small>Unofficial fan project. Not affiliated with the Premier League or any club.</small>
+</div>
+
+</main>
+
+<script>
+function updateTeam() {
+  let t = document.getElementById('team').value;
+  document.getElementById('club').textContent =
+    t === 'Wolverhampton Wanderers' ? '🐺 Wolves' : t;
+
+  try {
+    localStorage.setItem('kickoff-team', t);
+  } catch(e) {}
+}
+
+try {
+  let saved = localStorage.getItem('kickoff-team');
+  if(saved) {
+    document.getElementById('team').value = saved;
+    updateTeam();
+  }
+} catch(e) {}
+
+function addDemoCalendar() {
+  let mins = Number(document.getElementById('minutes').value);
+  let d = new Date();
+  d.setDate(d.getDate()+2);
+  d.setHours(19,0,0,0);
+
+  let start = d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  let end = new Date(d.getTime()+2*60*60*1000)
+    .toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+
+  let alarm = `BEGIN:VALARM
+TRIGGER:-PT${mins}M
+ACTION:DISPLAY
+DESCRIPTION:Kickoff Club match reminder
+END:VALARM`;
+
+  let ics = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kickoff Club//EN
+BEGIN:VEVENT
+UID:kickoffclub-demo-${Date.now()}@kickoffclub
+DTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'')}
+DTSTART:${start}
+DTEND:${end}
+SUMMARY:Kickoff Club - ${document.getElementById('club').textContent} match (DEMO)
+DESCRIPTION:Demo reminder. Update this event with a real fixture.
+${alarm}
+END:VEVENT
+END:VCALENDAR`;
+
+  let blob = new Blob([ics], {type:'text/calendar'});
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'kickoff-club-demo.ics';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+
+</body>
+</html>
